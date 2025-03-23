@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"math"
 	"time"
+	"strings"
 
-	"crypto_trading/src/handlers"
 	"crypto_trading/src/alerting"
+	"crypto_trading/src/handlers"
+	"crypto_trading/src/trade"
 )
 
 var(
@@ -78,8 +80,8 @@ func tradingPathsSearching(currency string, balance float64) {
 				continue
 			}
 			profit := AnalizeOfferProfit(tradingPairs, startSize)
-			pairsNames := fmt.Sprintf("%s/%s/%s", currency, secondCurrency, thirdCurrency)
-			BuyDecision(tradingPairs, profit, pairsNames, startSize*tradingPairs[0].Bid.Price, MIN_MONEY_DEAL * balance)
+			pairsNames := []string{currency, secondCurrency, thirdCurrency}
+			BuyDecision(tradingPairs, profit, pairsNames, startSize, MIN_MONEY_DEAL * balance)
 		}
 	}
 }
@@ -116,17 +118,28 @@ func AnalizeOfferProfit(tradingPairs TradingPairs, startSize float64) float64 {
 	return finalBalance - startBalance
 }
 
-func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames string, balance float64, moneyAmount float64) {
-	if profit/balance < MIN_PROFIT || balance < moneyAmount {
+func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string, startSize float64, moneyAmount float64) {
+	orderSize := startSize * tradingPairs[0].Bid.Price
+	if profit/orderSize < MIN_PROFIT || orderSize < moneyAmount {
 		return
 	}
 
-
 	currentTime := time.Now()
-	lastAlertTime, exists := lastAlertTimes[pairsNames]
+	pairsNamesString := fmt.Sprintf("%s", strings.Join(pairsNames, "/"))
+	lastAlertTime, exists := lastAlertTimes[pairsNamesString]
 	if exists && currentTime.Sub(lastAlertTime).Minutes() < 1 {
 		return
 	}
+
+	// выделить в trade в отдельную функцию
+	qty, err := trade.ProcessFirstPair(startSize, tradingPairs[0].Bid.Price, pairsNames)
+	if err!= nil || qty <= 0.0 {
+		fmt.Println(err)
+		return
+	}
+	pairsNames = append(pairsNames, pairsNames[0])
+
+	trade.SellAll(pairsNames, qty)
 	pricesMessage := "Цены:\n"
 	for i := 0; i < 2; i++ {
 		pricesMessage += fmt.Sprintf("%d: Bid Price=%.6f, Size=%.6f, Seq=%d\n", 
@@ -139,11 +152,9 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames string, b
 		tradingPairs[2].Ask.Price, 
 		tradingPairs[2].Ask.Size, 
 		tradingPairs[2].Ask.Seq)
-	message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s, ", profit, profit/balance*100, pairsNames, pricesMessage)
+	message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s, ", profit, profit/orderSize*100, pairsNames, pricesMessage)
 	alerting.SendMessage(message)
-	lastAlertTimes[pairsNames] = currentTime	
+	lastAlertTimes[pairsNamesString] = currentTime	
 }
 
-func roundCustomStep(number, step float64) float64 {
-	return math.Trunc(number/step) * step
-}
+

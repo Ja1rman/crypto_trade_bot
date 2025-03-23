@@ -12,7 +12,6 @@ import (
 
 var _ = Describe("Trading Calculations", func() {
 	var balance = 1000.0
-
 	Describe("CalculateMarketSize", func() {
 		It("first Bid Size", func() {
 			tradingPairs := analyzer.TradingPairs{

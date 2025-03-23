@@ -6,6 +6,7 @@ import (
     "context"
 	"os"
 	"encoding/json"
+	"strconv"
 
     bybit "github.com/wuhewuhe/bybit.go.api"
 
@@ -55,8 +56,8 @@ func getTickers(apiKey string, apiSecret string) {
 }
 
 func GetCurrenciesPrecision() {
-	client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.TESTNET))
-	precisionMap := make(map[string]string)
+	client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.MAINNET))
+	precisionMap := make(map[string]config.Info)
 
 	for symbol := range config.SUBSCRIBE_TICKERS_LIST {
 		params := map[string]interface{}{"category": "spot", "symbol": symbol}
@@ -83,21 +84,21 @@ func GetCurrenciesPrecision() {
 			continue
 		}
 
-		// Обрабатываем список инструментов
 		for _, instrument := range result.List {
-			// Записываем basePrecision для baseCoin
-			if _, exists := precisionMap[instrument.BaseCoin]; !exists {
-				precisionMap[instrument.BaseCoin] = instrument.LotSizeFilter.BasePrecision
-			}
+			basePrecision, _ := strconv.ParseFloat(instrument.LotSizeFilter.BasePrecision, 64)
+			quotePrecision, _ := strconv.ParseFloat(instrument.LotSizeFilter.QuotePrecision, 64)
 
-			// Записываем quotePrecision для quoteCoin
-			if _, exists := precisionMap[instrument.QuoteCoin]; !exists {
-				precisionMap[instrument.QuoteCoin] = instrument.LotSizeFilter.QuotePrecision
+			precisionMap[symbol] = config.Info{
+				BaseCoin:  instrument.BaseCoin,
+				QuoteCoin: instrument.QuoteCoin,
+				Precision: config.Precision{
+					BasePrecision: basePrecision,
+					QuotePrecision: quotePrecision,
+				},
 			}
 		}
 	}
 
-	// Выводим результат
+	// Запись в файл
 	writeToFile(precisionMap, "results.json")
 }
-

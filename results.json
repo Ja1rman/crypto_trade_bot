@@ -1,0 +1,1458 @@
+{
+  "ADAEUR": {
+    "BaseCoin": "ADA",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ADAUSDC": {
+    "BaseCoin": "ADA",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ADAUSDT": {
+    "BaseCoin": "ADA",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ALGOBTC": {
+    "BaseCoin": "ALGO",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-10
+    }
+  },
+  "ALGOUSDT": {
+    "BaseCoin": "ALGO",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "APEUSDC": {
+    "BaseCoin": "APE",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "APEUSDT": {
+    "BaseCoin": "APE",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "APEXUSDC": {
+    "BaseCoin": "APEX",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "APEXUSDT": {
+    "BaseCoin": "APEX",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "APTUSDC": {
+    "BaseCoin": "APT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "APTUSDT": {
+    "BaseCoin": "APT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "ARBUSDC": {
+    "BaseCoin": "ARB",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ARBUSDT": {
+    "BaseCoin": "ARB",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ATOMUSDC": {
+    "BaseCoin": "ATOM",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "ATOMUSDT": {
+    "BaseCoin": "ATOM",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "AVAXEUR": {
+    "BaseCoin": "AVAX",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "AVAXUSDC": {
+    "BaseCoin": "AVAX",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "AVAXUSDT": {
+    "BaseCoin": "AVAX",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BBSOLSOL": {
+    "BaseCoin": "BBSOL",
+    "QuoteCoin": "SOL",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "BBSOLUSDC": {
+    "BaseCoin": "BBSOL",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BBSOLUSDT": {
+    "BaseCoin": "BBSOL",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BCHUSDC": {
+    "BaseCoin": "BCH",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "BCHUSDT": {
+    "BaseCoin": "BCH",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "BNBUSDC": {
+    "BaseCoin": "BNB",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "BNBUSDT": {
+    "BaseCoin": "BNB",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "BONKUSDC": {
+    "BaseCoin": "BONK",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "BONKUSDT": {
+    "BaseCoin": "BONK",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "BRETTUSDC": {
+    "BaseCoin": "BRETT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BRETTUSDT": {
+    "BaseCoin": "BRETT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "BTCBRL": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "BRL",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BTCBRZ": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "BRZ",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "BTCDAI": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "DAI",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "BTCEUR": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "BTCPLN": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "PLN",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BTCTRY": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "TRY",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "BTCUSDC": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "BTCUSDE": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "USDE",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "BTCUSDT": {
+    "BaseCoin": "BTC",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "CATIEUR": {
+    "BaseCoin": "CATI",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "CATIUSDC": {
+    "BaseCoin": "CATI",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "CATIUSDT": {
+    "BaseCoin": "CATI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "CHZUSDC": {
+    "BaseCoin": "CHZ",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "CHZUSDT": {
+    "BaseCoin": "CHZ",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "DAIUSDT": {
+    "BaseCoin": "DAI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "DOGEEUR": {
+    "BaseCoin": "DOGE",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "DOGEUSDC": {
+    "BaseCoin": "DOGE",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "DOGEUSDT": {
+    "BaseCoin": "DOGE",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "DOGSEUR": {
+    "BaseCoin": "DOGS",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "DOGSUSDC": {
+    "BaseCoin": "DOGS",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "DOGSUSDT": {
+    "BaseCoin": "DOGS",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "DOTBTC": {
+    "BaseCoin": "DOT",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-10
+    }
+  },
+  "DOTUSDC": {
+    "BaseCoin": "DOT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "DOTUSDT": {
+    "BaseCoin": "DOT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ENAEUR": {
+    "BaseCoin": "ENA",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "ENAUSDT": {
+    "BaseCoin": "ENA",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "EOSUSDC": {
+    "BaseCoin": "EOS",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "EOSUSDT": {
+    "BaseCoin": "EOS",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ETHBRL": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "BRL",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ETHBTC": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-11
+    }
+  },
+  "ETHDAI": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "DAI",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "ETHEUR": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "ETHPLN": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "PLN",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "ETHTRY": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "TRY",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "ETHUSDC": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "ETHUSDE": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "USDE",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "ETHUSDT": {
+    "BaseCoin": "ETH",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "FETUSDC": {
+    "BaseCoin": "FET",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "FETUSDT": {
+    "BaseCoin": "FET",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "FILUSDC": {
+    "BaseCoin": "FIL",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "FILUSDT": {
+    "BaseCoin": "FIL",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "FLOKIUSDC": {
+    "BaseCoin": "FLOKI",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "FLOKIUSDT": {
+    "BaseCoin": "FLOKI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "GMTUSDC": {
+    "BaseCoin": "GMT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "GMTUSDT": {
+    "BaseCoin": "GMT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "HFTUSDC": {
+    "BaseCoin": "HFT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "HFTUSDT": {
+    "BaseCoin": "HFT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "HMSTRUSDC": {
+    "BaseCoin": "HMSTR",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "HMSTRUSDT": {
+    "BaseCoin": "HMSTR",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "ICPUSDC": {
+    "BaseCoin": "ICP",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "ICPUSDT": {
+    "BaseCoin": "ICP",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "INJUSDC": {
+    "BaseCoin": "INJ",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "INJUSDT": {
+    "BaseCoin": "INJ",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "JASMYUSDC": {
+    "BaseCoin": "JASMY",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "JASMYUSDT": {
+    "BaseCoin": "JASMY",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "KASUSDC": {
+    "BaseCoin": "KAS",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "KASUSDT": {
+    "BaseCoin": "KAS",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "LDOUSDC": {
+    "BaseCoin": "LDO",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "LDOUSDT": {
+    "BaseCoin": "LDO",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "LINKEUR": {
+    "BaseCoin": "LINK",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "LINKUSDC": {
+    "BaseCoin": "LINK",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "LINKUSDT": {
+    "BaseCoin": "LINK",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "LTCBTC": {
+    "BaseCoin": "LTC",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "LTCEUR": {
+    "BaseCoin": "LTC",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "LTCUSDC": {
+    "BaseCoin": "LTC",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "LTCUSDT": {
+    "BaseCoin": "LTC",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "LUNCUSDC": {
+    "BaseCoin": "LUNC",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 1e-11
+    }
+  },
+  "LUNCUSDT": {
+    "BaseCoin": "LUNC",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 1e-11
+    }
+  },
+  "MANABTC": {
+    "BaseCoin": "MANA",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "MANAUSDC": {
+    "BaseCoin": "MANA",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "MANAUSDT": {
+    "BaseCoin": "MANA",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "METHETH": {
+    "BaseCoin": "METH",
+    "QuoteCoin": "ETH",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "METHUSDT": {
+    "BaseCoin": "METH",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "MEWUSDC": {
+    "BaseCoin": "MEW",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "MEWUSDT": {
+    "BaseCoin": "MEW",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "MNTBTC": {
+    "BaseCoin": "MNT",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-10
+    }
+  },
+  "MNTUSDC": {
+    "BaseCoin": "MNT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "MNTUSDT": {
+    "BaseCoin": "MNT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "NEAREUR": {
+    "BaseCoin": "NEAR",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "NEARUSDC": {
+    "BaseCoin": "NEAR",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "NEARUSDT": {
+    "BaseCoin": "NEAR",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "NOTUSDC": {
+    "BaseCoin": "NOT",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "NOTUSDT": {
+    "BaseCoin": "NOT",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "ONDOEUR": {
+    "BaseCoin": "ONDO",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ONDOUSDC": {
+    "BaseCoin": "ONDO",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ONDOUSDT": {
+    "BaseCoin": "ONDO",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "OPUSDC": {
+    "BaseCoin": "OP",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "OPUSDT": {
+    "BaseCoin": "OP",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "PEPEEUR": {
+    "BaseCoin": "PEPE",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "PEPEUSDC": {
+    "BaseCoin": "PEPE",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "PEPEUSDT": {
+    "BaseCoin": "PEPE",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "SANDBTC": {
+    "BaseCoin": "SAND",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "SANDUSDC": {
+    "BaseCoin": "SAND",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SANDUSDT": {
+    "BaseCoin": "SAND",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SEIUSDC": {
+    "BaseCoin": "SEI",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SEIUSDT": {
+    "BaseCoin": "SEI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SHIBEUR": {
+    "BaseCoin": "SHIB",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "SHIBUSDC": {
+    "BaseCoin": "SHIB",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "SHIBUSDT": {
+    "BaseCoin": "SHIB",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "SOLBRL": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "BRL",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "SOLBTC": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "SOLEUR": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "SOLUSDC": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "SOLUSDE": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "USDE",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SOLUSDT": {
+    "BaseCoin": "SOL",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "STETHEUR": {
+    "BaseCoin": "STETH",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "STETHUSDT": {
+    "BaseCoin": "STETH",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.00001,
+      "QuotePrecision": 1e-7
+    }
+  },
+  "STRKUSDC": {
+    "BaseCoin": "STRK",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "STRKUSDT": {
+    "BaseCoin": "STRK",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SUIUSDC": {
+    "BaseCoin": "SUI",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SUIUSDT": {
+    "BaseCoin": "SUI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "SWELLUSDC": {
+    "BaseCoin": "SWELL",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "SWELLUSDT": {
+    "BaseCoin": "SWELL",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TIAUSDC": {
+    "BaseCoin": "TIA",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TIAUSDT": {
+    "BaseCoin": "TIA",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TONEUR": {
+    "BaseCoin": "TON",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TONUSDC": {
+    "BaseCoin": "TON",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TONUSDT": {
+    "BaseCoin": "TON",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "TRUMPUSDC": {
+    "BaseCoin": "TRUMP",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "TRUMPUSDT": {
+    "BaseCoin": "TRUMP",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "TRXUSDC": {
+    "BaseCoin": "TRX",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "TRXUSDT": {
+    "BaseCoin": "TRX",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "UNIUSDC": {
+    "BaseCoin": "UNI",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "UNIUSDT": {
+    "BaseCoin": "UNI",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.001,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDCBRL": {
+    "BaseCoin": "USDC",
+    "QuoteCoin": "BRL",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "USDCEUR": {
+    "BaseCoin": "USDC",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDCUSDT": {
+    "BaseCoin": "USDC",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDEUSDC": {
+    "BaseCoin": "USDE",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDEUSDT": {
+    "BaseCoin": "USDE",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDTBRL": {
+    "BaseCoin": "USDT",
+    "QuoteCoin": "BRL",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "USDTBRZ": {
+    "BaseCoin": "USDT",
+    "QuoteCoin": "BRZ",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "USDTEUR": {
+    "BaseCoin": "USDT",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "USDTPLN": {
+    "BaseCoin": "USDT",
+    "QuoteCoin": "PLN",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.001
+    }
+  },
+  "USDTTRY": {
+    "BaseCoin": "USDT",
+    "QuoteCoin": "TRY",
+    "Precision": {
+      "BasePrecision": 1,
+      "QuotePrecision": 0.01
+    }
+  },
+  "WBTCBTC": {
+    "BaseCoin": "WBTC",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "WBTCUSDT": {
+    "BaseCoin": "WBTC",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-8
+    }
+  },
+  "WIFEUR": {
+    "BaseCoin": "WIF",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    }
+  },
+  "WIFUSDC": {
+    "BaseCoin": "WIF",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "WIFUSDT": {
+    "BaseCoin": "WIF",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "WLDEUR": {
+    "BaseCoin": "WLD",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "WLDUSDC": {
+    "BaseCoin": "WLD",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "WLDUSDT": {
+    "BaseCoin": "WLD",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "XLMBTC": {
+    "BaseCoin": "XLM",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-11
+    }
+  },
+  "XLMUSDC": {
+    "BaseCoin": "XLM",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "XLMUSDT": {
+    "BaseCoin": "XLM",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "XRPBTC": {
+    "BaseCoin": "XRP",
+    "QuoteCoin": "BTC",
+    "Precision": {
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    }
+  },
+  "XRPEUR": {
+    "BaseCoin": "XRP",
+    "QuoteCoin": "EUR",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "XRPUSDC": {
+    "BaseCoin": "XRP",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "XRPUSDT": {
+    "BaseCoin": "XRP",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ZKUSDC": {
+    "BaseCoin": "ZK",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ZKUSDT": {
+    "BaseCoin": "ZK",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.000001
+    }
+  },
+  "ZROUSDC": {
+    "BaseCoin": "ZRO",
+    "QuoteCoin": "USDC",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  },
+  "ZROUSDT": {
+    "BaseCoin": "ZRO",
+    "QuoteCoin": "USDT",
+    "Precision": {
+      "BasePrecision": 0.01,
+      "QuotePrecision": 0.00001
+    }
+  }
+}

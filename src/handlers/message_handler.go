@@ -84,7 +84,7 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 		}
 	}
 
-	updatePriceMap(value.Second, value.First, newItem)
+	updatePriceMap(value.QuoteCoin, value.BaseCoin, newItem)
 	newItem.Bid.Size = newItem.Bid.Size * newItem.Bid.Price
 	if newItem.Bid.Price == 0 {
 		newItem.Bid.Price = 0
@@ -97,7 +97,7 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 	} else {
 		newItem.Ask.Price = 1 / newItem.Ask.Price
 	}
-	updatePriceMap(value.First, value.Second, newItem)
+	updatePriceMap(value.BaseCoin, value.QuoteCoin, newItem)
 }
 
 func updatePriceMap(first string, second string, newItem OrderBookData) {

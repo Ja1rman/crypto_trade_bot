@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-	
+	"context"
 	bybit "github.com/wuhewuhe/bybit.go.api"
 
 	"crypto_trading/src/logger"
@@ -13,7 +13,8 @@ import (
 	//"crypto_trading/src/alerting"
 	//"crypto_trading/src/analyzer"
 
-	//"crypto_trading/src/trade"
+	"crypto_trading/src/trade"
+	//"crypto_trading/src/utils"
 )
 
 
@@ -75,6 +76,42 @@ func main() {
 	// go analyzer.StartAnalyzies()
 	// select {}
 	
-	// trade.CreateOrder("BTCUSDT")
+
+	client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.TESTNET))
+	params := map[string]interface{}{"category": "spot", "symbol": "BTCUSDT"}
+	resp, _ := client.NewUtaBybitServiceWithParams(params).GetInstrumentInfo(context.Background())
+	fmt.Println(resp)
+	price := 93400.0
+	// BTC 0.000001, USDT 1e-8,
 	
+	//price = trade.RoundCustomStep(price, 0.000001)
+	fmt.Println(price)
+	orderId, err := trade.SellMarketPrice("BTCUSDT",  0.001, "baseCoin")
+	fmt.Println(err)
+	fmt.Println(orderId)
+	//orderId := "1912794737031774976"
+	orderInfo, err := trade.GetOrderInfo(orderId)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(orderInfo)
+	qty := trade.SumQty(orderInfo, false)
+	fmt.Println(qty)
+	
+
+	//utils.GetCurrenciesPrecision()
+	//client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.MAINNET))
+
+	// params := map[string]interface{}{
+	// 	"category": "spot",
+	// 	"symbol":   "ETHBTC",
+	// }
+
+	// // Получаем информацию о торговом инструменте
+	// response, err := client.NewUtaBybitServiceWithParams(params).GetInstrumentInfo(context.Background())
+	// if err != nil {
+	// 	fmt.Println("Ошибка при получении данных: %v", err)
+	// }
+
+	// fmt.Printf("Информация об инструменте: %+v\n", response)
 }
