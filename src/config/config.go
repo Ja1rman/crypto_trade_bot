@@ -15,6 +15,7 @@ type Info struct {
 	BaseCoin string `json:"BaseCoin"`
 	QuoteCoin string `json:"QuoteCoin"`
 	Precision Precision `json:"Precision"`
+	TickSize float64 `json:"TickSize"`
 }
 
 type Precision struct {
@@ -29,1094 +30,1276 @@ var (
 		"ADAEUR": {
 			"ADA", "EUR",
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ADAUSDC": {
-			"ADA", "USDC",
+			"ADA", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ADAUSDT": {
-			"ADA", "USDT",
+			"ADA", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ALGOBTC": {
-			"ALGO", "BTC",
+			"ALGO", "BTC" ,
 			Precision {
-				0.1, 1e-10,
+				1e1, 1e10,
 			},
+			1e9,
 		},
 		"ALGOUSDT": {
-			"ALGO", "USDT",
+			"ALGO", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"APEUSDC": {
-			"APE", "USDC",
+			"APE", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"APEUSDT": {
-			"APE", "USDT",
+			"APE", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"APEXUSDC": {
-			"APEX", "USDC",
+			"APEX", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"APEXUSDT": {
-			"APEX", "USDT",
+			"APEX", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"APTUSDC": {
-			"APT", "USDC",
+			"APT", "USDC" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"APTUSDT": {
-			"APT", "USDT",
+			"APT", "USDT" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"ARBUSDC": {
-			"ARB", "USDC",
+			"ARB", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ARBUSDT": {
-			"ARB", "USDT",
+			"ARB", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ATOMUSDC": {
-			"ATOM", "USDC",
+			"ATOM", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"ATOMUSDT": {
-			"ATOM", "USDT",
+			"ATOM", "USDT" ,
 			Precision {
-				0.001, 0.000001,
+				1e3, 1e6,
 			},
+			1e3,
 		},
 		"AVAXEUR": {
-			"AVAX", "EUR",
+			"AVAX", "EUR" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"AVAXUSDC": {
-			"AVAX", "USDC",
+			"AVAX", "USDC" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"AVAXUSDT": {
-			"AVAX", "USDT",
+			"AVAX", "USDT" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"BBSOLSOL": {
-			"BBSOL", "SOL",
+			"BBSOL", "SOL" ,
 			Precision {
-				0.001, 1e-7,
+				1e3, 1e7,
 			},
+			1e4,
 		},
 		"BBSOLUSDC": {
-			"BBSOL", "USDC",
+			"BBSOL", "USDC" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"BBSOLUSDT": {
-			"BBSOL", "USDT",
+			"BBSOL", "USDT" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"BCHUSDC": {
-			"BCH", "USDC",
+			"BCH", "USDC" ,
 			Precision {
-				0.001, 0.0001,
+				1e3, 1e4,
 			},
+			1e1,
 		},
 		"BCHUSDT": {
-			"BCH", "USDT",
+			"BCH", "USDT" ,
 			Precision {
-				0.001, 0.0001,
+				1e3, 1e4,
 			},
+			1e1,
 		},
 		"BNBUSDC": {
-			"BNB", "USDC",
+			"BNB", "USDC" ,
 			Precision {
-				0.001, 0.0001,
+				1e4, 1e5,
 			},
+			1e1,
 		},
 		"BNBUSDT": {
-			"BNB", "USDT",
+			"BNB", "USDT" ,
 			Precision {
-				0.00001, 1e-7,
+				1e4, 1e6,
 			},
+			1e2,
 		},
 		"BONKUSDC": {
-			"BONK", "USDC",
+			"BONK", "USDC" ,
 			Precision {
-				1, 1e-8,
+				1, 1e8,
 			},
+			1e8,
 		},
 		"BONKUSDT": {
-			"BONK", "USDT",
+			"BONK", "USDT" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"BRETTUSDC": {
-			"BRETT", "USDC",
+			"BRETT", "USDC" ,
 			Precision {
-				1, 0.00001,
+				1, 1e5,
 			},
+			1e5,
 		},
 		"BRETTUSDT": {
-			"BRETT", "USDT",
+			"BRETT", "USDT" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"BTCBRL": {
-			"BTC", "BRL",
+			"BTC", "BRL" ,
 			Precision {
-				0.00001, 0.00001,
+				1e6, 1e6,
 			},
+			1,
 		},
 		"BTCBRZ": {
-			"BTC", "BRZ",
+			"BTC", "BRZ" ,
 			Precision {
-				0.00001, 0.000001,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"BTCDAI": {
-			"BTC", "DAI",
+			"BTC", "DAI" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"BTCEUR": {
-			"BTC", "EUR",
+			"BTC", "EUR" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"BTCPLN": {
-			"BTC", "PLN",
+			"BTC", "PLN" ,
 			Precision {
-				0.00001, 0.00001,
+				1e6, 1e6,
 			},
+			1,
 		},
 		"BTCTRY": {
-			"BTC", "TRY",
+			"BTC", "TRY" ,
 			Precision {
-				0.00001, 0.00001,
+				1e6, 1e6,
 			},
+			1,
 		},
 		"BTCUSDC": {
-			"BTC", "USDC",
+			"BTC", "USDC" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"BTCUSDE": {
-			"BTC", "USDE",
+			"BTC", "USDE" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"BTCUSDT": {
-			"BTC", "USDT",
+			"BTC", "USDT" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e7,
 			},
+			1e1,
 		},
 		"CATIEUR": {
-			"CATI", "EUR",
+			"CATI", "EUR" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"CATIUSDC": {
-			"CATI", "USDC",
+			"CATI", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"CATIUSDT": {
-			"CATI", "USDT",
+			"CATI", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"CHZUSDC": {
-			"CHZ", "USDC",
+			"CHZ", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"CHZUSDT": {
-			"CHZ", "USDT",
+			"CHZ", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"DAIUSDT": {
-			"DAI", "USDT",
+			"DAI", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"DOGEEUR": {
-			"DOGE", "EUR",
+			"DOGE", "EUR" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"DOGEUSDC": {
-			"DOGE", "USDC",
+			"DOGE", "USDC" ,
 			Precision {
-				0.1, 0.000001,
+				1e1, 1e6,
 			},
+			1e5,
 		},
 		"DOGEUSDT": {
-			"DOGE", "USDT",
+			"DOGE", "USDT" ,
 			Precision {
-				0.1, 0.000001,
+				1e1, 1e6,
 			},
+			1e5,
 		},
 		"DOGSEUR": {
-			"DOGS", "EUR",
+			"DOGS", "EUR" ,
 			Precision {
-				1, 1e-7,
+				1, 1e7,
 			},
+			1e7,
 		},
 		"DOGSUSDC": {
-			"DOGS", "USDC",
+			"DOGS", "USDC" ,
 			Precision {
-				1, 1e-7,
+				1, 1e7,
 			},
+			1e7,
 		},
 		"DOGSUSDT": {
-			"DOGS", "USDT",
+			"DOGS", "USDT" ,
 			Precision {
-				1, 1e-7,
+				1, 1e7,
 			},
+			1e7,
 		},
 		"DOTBTC": {
-			"DOT", "BTC",
+			"DOT", "BTC" ,
 			Precision {
-				0.01, 1e-10,
+				1e2, 1e10,
 			},
+			1e8,
 		},
 		"DOTUSDC": {
-			"DOT", "USDC",
+			"DOT", "USDC" ,
 			Precision {
-				0.001, 0.000001,
+				1e3, 1e6,
 			},
+			1e3,
 		},
 		"DOTUSDT": {
-			"DOT", "USDT",
+			"DOT", "USDT" ,
 			Precision {
-				0.001, 0.000001,
+				1e3, 1e6,
 			},
+			1e3,
 		},
 		"ENAEUR": {
-			"ENA", "EUR",
+			"ENA", "EUR" ,
 			Precision {
-				1, 0.0001,
+				1, 1e4,
 			},
+			1e4,
 		},
 		"ENAUSDT": {
-			"ENA", "USDT",
+			"ENA", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"EOSUSDC": {
-			"EOS", "USDC",
+			"EOS", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"EOSUSDT": {
-			"EOS", "USDT",
+			"EOS", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ETHBRL": {
-			"ETH", "BRL",
+			"ETH", "BRL" ,
 			Precision {
-				0.0001, 0.000001,
+				1e4, 1e6,
 			},
+			1e2,
 		},
 		"ETHBTC": {
-			"ETH", "BTC",
+			"ETH", "BTC" ,
 			Precision {
-				0.00001, 1e-11,
+				1e5, 1e11,
 			},
+			1e6,
 		},
 		"ETHDAI": {
-			"ETH", "DAI",
+			"ETH", "DAI" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"ETHEUR": {
-			"ETH", "EUR",
+			"ETH", "EUR" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"ETHPLN": {
-			"ETH", "PLN",
+			"ETH", "PLN" ,
 			Precision {
-				0.0001, 0.0001,
+				1e4, 1e4,
 			},
+			1,
 		},
 		"ETHTRY": {
-			"ETH", "TRY",
+			"ETH", "TRY" ,
 			Precision {
-				0.0001, 0.0001,
+				1e4, 1e4,
 			},
+			1,
 		},
 		"ETHUSDC": {
-			"ETH", "USDC",
+			"ETH", "USDC" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"ETHUSDE": {
-			"ETH", "USDE",
+			"ETH", "USDE" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"ETHUSDT": {
-			"ETH", "USDT",
+			"ETH", "USDT" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"FETUSDC": {
-			"FET", "USDC",
+			"FET", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"FETUSDT": {
-			"FET", "USDT",
+			"FET", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"FILUSDC": {
-			"FIL", "USDC",
+			"FIL", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"FILUSDT": {
-			"FIL", "USDT",
+			"FIL", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"FLOKIUSDC": {
-			"FLOKI", "USDC",
+			"FLOKI", "USDC" ,
 			Precision {
-				1, 1e-8,
+				1, 1e8,
 			},
+			1e8,
 		},
 		"FLOKIUSDT": {
-			"FLOKI", "USDT",
+			"FLOKI", "USDT" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"GMTUSDC": {
-			"GMT", "USDC",
+			"GMT", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"GMTUSDT": {
-			"GMT", "USDT",
+			"GMT", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"HFTUSDC": {
-			"HFT", "USDC",
+			"HFT", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"HFTUSDT": {
-			"HFT", "USDT",
+			"HFT", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"HMSTRUSDC": {
-			"HMSTR", "USDC",
+			"HMSTR", "USDC" ,
 			Precision {
-				0.01, 1e-8,
+				1e2, 1e8,
 			},
+			1e6,
 		},
 		"HMSTRUSDT": {
-			"HMSTR", "USDT",
+			"HMSTR", "USDT" ,
 			Precision {
-				0.01, 1e-8,
+				1e2, 1e8,
 			},
+			1e6,
 		},
 		"ICPUSDC": {
-			"ICP", "USDC",
+			"ICP", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"ICPUSDT": {
-			"ICP", "USDT",
+			"ICP", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"INJUSDC": {
-			"INJ", "USDC",
+			"INJ", "USDC" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"INJUSDT": {
-			"INJ", "USDT",
+			"INJ", "USDT" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"JASMYUSDC": {
-			"JASMY", "USDC",
+			"JASMY", "USDC" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"JASMYUSDT": {
-			"JASMY", "USDT",
+			"JASMY", "USDT" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"KASUSDC": {
-			"KAS", "USDC",
+			"KAS", "USDC" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"KASUSDT": {
-			"KAS", "USDT",
+			"KAS", "USDT" ,
 			Precision {
-				0.01, 1e-7,
+				1e2, 1e7,
 			},
+			1e5,
 		},
 		"LDOUSDC": {
-			"LDO", "USDC",
+			"LDO", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"LDOUSDT": {
-			"LDO", "USDT",
+			"LDO", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"LINKEUR": {
-			"LINK", "EUR",
+			"LINK", "EUR" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"LINKUSDC": {
-			"LINK", "USDC",
+			"LINK", "USDC" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"LINKUSDT": {
-			"LINK", "USDT",
+			"LINK", "USDT" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"LTCBTC": {
-			"LTC", "BTC",
+			"LTC", "BTC" ,
 			Precision {
-				0.01, 1e-8,
+				1e3, 1e9,
 			},
+			1e6,
 		},
 		"LTCEUR": {
-			"LTC", "EUR",
+			"LTC", "EUR" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"LTCUSDC": {
-			"LTC", "USDC",
+			"LTC", "USDC" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"LTCUSDT": {
-			"LTC", "USDT",
+			"LTC", "USDT" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"LUNCUSDC": {
-			"LUNC", "USDC",
+			"LUNC", "USDC" ,
 			Precision {
-				0.001, 1e-11,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"LUNCUSDT": {
-			"LUNC", "USDT",
+			"LUNC", "USDT" ,
 			Precision {
-				0.001, 1e-11,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"MANABTC": {
-			"MANA", "BTC",
+			"MANA", "BTC" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"MANAUSDC": {
-			"MANA", "USDC",
+			"MANA", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"MANAUSDT": {
-			"MANA", "USDT",
+			"MANA", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"METHETH": {
-			"METH", "ETH",
+			"METH", "ETH" ,
 			Precision {
-				0.00001, 1e-9,
+				1e5, 1e9,
 			},
+			1e4,
 		},
 		"METHUSDT": {
-			"METH", "USDT",
+			"METH", "USDT" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"MEWUSDC": {
-			"MEW", "USDC",
+			"MEW", "USDC" ,
 			Precision {
-				0.01, 1e-8,
+				1e2, 1e8,
 			},
+			1e6,
 		},
 		"MEWUSDT": {
-			"MEW", "USDT",
+			"MEW", "USDT" ,
 			Precision {
-				0.01, 1e-8,
+				1e2, 1e8,
 			},
+			1e6,
 		},
 		"MNTBTC": {
-			"MNT", "BTC",
+			"MNT", "BTC" ,
 			Precision {
-				0.01, 1e-10,
+				1e2, 1e10,
 			},
+			1e8,
 		},
 		"MNTUSDC": {
-			"MNT", "USDC",
+			"MNT", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"MNTUSDT": {
-			"MNT", "USDT",
+			"MNT", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"NEAREUR": {
-			"NEAR", "EUR",
+			"NEAR", "EUR" ,
 			Precision {
-				0.1, 0.0001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"NEARUSDC": {
-			"NEAR", "USDC",
+			"NEAR", "USDC" ,
 			Precision {
-				0.1, 0.0001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"NEARUSDT": {
-			"NEAR", "USDT",
+			"NEAR", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"NOTUSDC": {
-			"NOT", "USDC",
+			"NOT", "USDC" ,
 			Precision {
-				1, 0.000001,
+				1, 1e6,
 			},
+			1e6,
 		},
 		"NOTUSDT": {
-			"NOT", "USDT",
+			"NOT", "USDT" ,
 			Precision {
-				0.01, 1e-8,
+				1e2, 1e8,
 			},
+			1e6,
 		},
 		"ONDOEUR": {
-			"ONDO", "EUR",
+			"ONDO", "EUR" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ONDOUSDC": {
-			"ONDO", "USDC",
+			"ONDO", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ONDOUSDT": {
-			"ONDO", "USDT",
+			"ONDO", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"OPUSDC": {
-			"OP", "USDC",
+			"OP", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"OPUSDT": {
-			"OP", "USDT",
+			"OP", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"PEPEEUR": {
-			"PEPE", "EUR",
+			"PEPE", "EUR" ,
 			Precision {
-				1, 1e-8,
+				1, 1e8,
 			},
+			1e8,
 		},
 		"PEPEUSDC": {
-			"PEPE", "USDC",
+			"PEPE", "USDC" ,
 			Precision {
-				1, 1e-8,
+				1, 1e8,
 			},
+			1e8,
 		},
 		"PEPEUSDT": {
-			"PEPE", "USDT",
+			"PEPE", "USDT" ,
 			Precision {
-				1, 1e-8,
+				1, 1e8,
 			},
+			1e8,
 		},
 		"SANDBTC": {
-			"SAND", "BTC",
+			"SAND", "BTC" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"SANDUSDC": {
-			"SAND", "USDC",
+			"SAND", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SANDUSDT": {
-			"SAND", "USDT",
+			"SAND", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SEIUSDC": {
-			"SEI", "USDC",
+			"SEI", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SEIUSDT": {
-			"SEI", "USDT",
+			"SEI", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SHIBEUR": {
-			"SHIB", "EUR",
+			"SHIB", "EUR" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"SHIBUSDC": {
-			"SHIB", "USDC",
+			"SHIB", "USDC" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"SHIBUSDT": {
-			"SHIB", "USDT",
+			"SHIB", "USDT" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"SOLBRL": {
-			"SOL", "BRL",
+			"SOL", "BRL" ,
 			Precision {
-				0.001, 0.0001,
+				1e3, 1e4,
 			},
+			1e1,
 		},
 		"SOLBTC": {
-			"SOL", "BTC",
+			"SOL", "BTC" ,
 			Precision {
-				0.01, 1e-9,
+				1e3, 1e10,
 			},
+			1e7,
 		},
 		"SOLEUR": {
-			"SOL", "EUR",
+			"SOL", "EUR" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"SOLUSDC": {
-			"SOL", "USDC",
+			"SOL", "USDC" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"SOLUSDE": {
-			"SOL", "USDE",
+			"SOL", "USDE" ,
 			Precision {
-				0.0001, 0.000001,
+				1e4, 1e6,
 			},
+			1e2,
 		},
 		"SOLUSDT": {
-			"SOL", "USDT",
+			"SOL", "USDT" ,
 			Precision {
-				0.001, 0.00001,
+				1e3, 1e5,
 			},
+			1e2,
 		},
 		"STETHEUR": {
-			"STETH", "EUR",
+			"STETH", "EUR" ,
 			Precision {
-				0.0001, 0.000001,
+				1e4, 1e6,
 			},
+			1e2,
 		},
 		"STETHUSDT": {
-			"STETH", "USDT",
+			"STETH", "USDT" ,
 			Precision {
-				0.00001, 1e-7,
+				1e5, 1e7,
 			},
+			1e2,
 		},
 		"STRKUSDC": {
-			"STRK", "USDC",
+			"STRK", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"STRKUSDT": {
-			"STRK", "USDT",
+			"STRK", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SUIUSDC": {
-			"SUI", "USDC",
+			"SUI", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SUIUSDT": {
-			"SUI", "USDT",
+			"SUI", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"SWELLUSDC": {
-			"SWELL", "USDC",
+			"SWELL", "USDC" ,
 			Precision {
-				1, 0.00001,
+				1, 1e5,
 			},
+			1e5,
 		},
 		"SWELLUSDT": {
-			"SWELL", "USDT",
+			"SWELL", "USDT" ,
 			Precision {
-				1, 0.00001,
+				1, 1e5,
 			},
+			1e5,
 		},
 		"TIAUSDC": {
-			"TIA", "USDC",
+			"TIA", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"TIAUSDT": {
-			"TIA", "USDT",
+			"TIA", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"TONEUR": {
-			"TON", "EUR",
+			"TON", "EUR" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"TONUSDC": {
-			"TON", "USDC",
+			"TON", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"TONUSDT": {
-			"TON", "USDT",
+			"TON", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"TRUMPUSDC": {
-			"TRUMP", "USDC",
+			"TRUMP", "USDC" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"TRUMPUSDT": {
-			"TRUMP", "USDT",
+			"TRUMP", "USDT" ,
 			Precision {
-				0.01, 0.0001,
+				1e2, 1e4,
 			},
+			1e2,
 		},
 		"TRXUSDC": {
-			"TRX", "USDC",
+			"TRX", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"TRXUSDT": {
-			"TRX", "USDT",
+			"TRX", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"UNIUSDC": {
-			"UNI", "USDC",
+			"UNI", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"UNIUSDT": {
-			"UNI", "USDT",
+			"UNI", "USDT" ,
 			Precision {
-				0.001, 0.000001,
+				1e3, 1e6,
 			},
+			1e3,
 		},
 		"USDCBRL": {
-			"USDC", "BRL",
+			"USDC", "BRL" ,
 			Precision {
-				0.1, 0.0001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"USDCEUR": {
-			"USDC", "EUR",
+			"USDC", "EUR" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"USDCUSDT": {
-			"USDC", "USDT",
+			"USDC", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"USDEUSDC": {
-			"USDE", "USDC",
+			"USDE", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"USDEUSDT": {
-			"USDE", "USDT",
+			"USDE", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"USDTBRL": {
-			"USDT", "BRL",
+			"USDT", "BRL" ,
 			Precision {
-				0.1, 0.0001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"USDTBRZ": {
-			"USDT", "BRZ",
+			"USDT", "BRZ" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"USDTEUR": {
-			"USDT", "EUR",
+			"USDT", "EUR" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"USDTPLN": {
-			"USDT", "PLN",
+			"USDT", "PLN" ,
 			Precision {
-				1, 0.001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"USDTTRY": {
-			"USDT", "TRY",
+			"USDT", "TRY" ,
 			Precision {
-				1, 0.01,
+				1e1, 1e3,
 			},
+			1e2,
 		},
 		"WBTCBTC": {
-			"WBTC", "BTC",
+			"WBTC", "BTC" ,
 			Precision {
-				0.0001, 1e-8,
+				1e6, 1e10,
 			},
+			1e4,
 		},
 		"WBTCUSDT": {
-			"WBTC", "USDT",
+			"WBTC", "USDT" ,
 			Precision {
-				0.000001, 1e-8,
+				1e6, 1e8,
 			},
+			1e2,
 		},
 		"WIFEUR": {
-			"WIF", "EUR",
+			"WIF", "EUR" ,
 			Precision {
-				0.1, 0.0001,
+				1e1, 1e4,
 			},
+			1e3,
 		},
 		"WIFUSDC": {
-			"WIF", "USDC",
+			"WIF", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"WIFUSDT": {
-			"WIF", "USDT",
+			"WIF", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"WLDEUR": {
-			"WLD", "EUR",
+			"WLD", "EUR" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"WLDUSDC": {
-			"WLD", "USDC",
+			"WLD", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"WLDUSDT": {
-			"WLD", "USDT",
+			"WLD", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"XLMBTC": {
-			"XLM", "BTC",
+			"XLM", "BTC" ,
 			Precision {
-				0.1, 1e-11,
+				1e1, 1e11,
 			},
+			1e10,
 		},
 		"XLMUSDC": {
-			"XLM", "USDC",
+			"XLM", "USDC" ,
 			Precision {
-				0.1, 0.00001,
+				1e1, 1e5,
 			},
+			1e4,
 		},
 		"XLMUSDT": {
-			"XLM", "USDT",
+			"XLM", "USDT" ,
 			Precision {
-				0.1, 0.00001,
+				1e1, 1e5,
 			},
+			1e4,
 		},
 		"XRPBTC": {
-			"XRP", "BTC",
+			"XRP", "BTC" ,
 			Precision {
-				0.1, 1e-9,
+				1e1, 1e9,
 			},
+			1e8,
 		},
 		"XRPEUR": {
-			"XRP", "EUR",
+			"XRP", "EUR" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"XRPUSDC": {
-			"XRP", "USDC",
+			"XRP", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"XRPUSDT": {
-			"XRP", "USDT",
+			"XRP", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ZKUSDC": {
-			"ZK", "USDC",
+			"ZK", "USDC" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ZKUSDT": {
-			"ZK", "USDT",
+			"ZK", "USDT" ,
 			Precision {
-				0.01, 0.000001,
+				1e2, 1e6,
 			},
+			1e4,
 		},
 		"ZROUSDC": {
-			"ZRO", "USDC",
+			"ZRO", "USDC" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 		"ZROUSDT": {
-			"ZRO", "USDT",
+			"ZRO", "USDT" ,
 			Precision {
-				0.01, 0.00001,
+				1e2, 1e5,
 			},
+			1e3,
 		},
 	}
 )

@@ -3,17 +3,17 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"time"
-	"context"
+	//"time"
+	//"context"
 	bybit "github.com/wuhewuhe/bybit.go.api"
 
 	"crypto_trading/src/logger"
 	"crypto_trading/src/handlers"
 	"crypto_trading/src/config"
 	//"crypto_trading/src/alerting"
-	//"crypto_trading/src/analyzer"
+	"crypto_trading/src/analyzer"
 
-	"crypto_trading/src/trade"
+	//"crypto_trading/src/trade"
 	//"crypto_trading/src/utils"
 )
 
@@ -42,13 +42,14 @@ func startConnection() {
 			logger.Logger.Println("Ошибка парсинга JSON:", err)
 			return err
 		}
-		eventTime := time.UnixMilli(jsonMessage.Cts)
-		now := time.Now()
-		diff := now.Sub(eventTime).Milliseconds()
-		if diff > 100 && jsonMessage.Ts != 0 {
+		// для задержек
+		//eventTime := time.UnixMilli(jsonMessage.Cts)
+		//now := time.Now()
+		//diff := now.Sub(eventTime).Milliseconds()
+		//if diff > 100 && jsonMessage.Ts != 0 {
 			//go alerting.SendMessage(fmt.Sprintf("Задержка принятия сообщения %d ms", diff))
-			fmt.Println("Задержка принятия сообщения %d ms", diff)
-		}
+			//fmt.Printf("Задержка принятия сообщения %d ms\n", diff)
+		//}
 		go handlers.UpdateOrdersBook(jsonMessage.Data)
 		return nil
 	})
@@ -68,50 +69,9 @@ func startConnection() {
 }
 
 
-
-
 func main() {
-	// logger.LoggerSetup()
-	// go startConnection()
-	// go analyzer.StartAnalyzies()
-	// select {}
-	
-
-	client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.TESTNET))
-	params := map[string]interface{}{"category": "spot", "symbol": "BTCUSDT"}
-	resp, _ := client.NewUtaBybitServiceWithParams(params).GetInstrumentInfo(context.Background())
-	fmt.Println(resp)
-	price := 93400.0
-	// BTC 0.000001, USDT 1e-8,
-	
-	//price = trade.RoundCustomStep(price, 0.000001)
-	fmt.Println(price)
-	orderId, err := trade.SellMarketPrice("BTCUSDT",  0.001, "baseCoin")
-	fmt.Println(err)
-	fmt.Println(orderId)
-	//orderId := "1912794737031774976"
-	orderInfo, err := trade.GetOrderInfo(orderId)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(orderInfo)
-	qty := trade.SumQty(orderInfo, false)
-	fmt.Println(qty)
-	
-
-	//utils.GetCurrenciesPrecision()
-	//client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.MAINNET))
-
-	// params := map[string]interface{}{
-	// 	"category": "spot",
-	// 	"symbol":   "ETHBTC",
-	// }
-
-	// // Получаем информацию о торговом инструменте
-	// response, err := client.NewUtaBybitServiceWithParams(params).GetInstrumentInfo(context.Background())
-	// if err != nil {
-	// 	fmt.Println("Ошибка при получении данных: %v", err)
-	// }
-
-	// fmt.Printf("Информация об инструменте: %+v\n", response)
+	logger.LoggerSetup()
+	go startConnection()
+	go analyzer.StartAnalyzies()
+	select {}
 }

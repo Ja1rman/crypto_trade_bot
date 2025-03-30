@@ -3,26 +3,31 @@ package analyzer
 import (
 	"fmt"
 	"math"
-	"time"
 	"strings"
+	"time"
 
 	"crypto_trading/src/alerting"
 	"crypto_trading/src/handlers"
+	"crypto_trading/src/logger"
 	"crypto_trading/src/trade"
 )
 
 var(
 	MIN_PROFIT float64 = 0.0158 // около 0.58% это комса
 	MIN_MONEY_DEAL float64 = 0.3
-	START_CURRENCIES = map[string]float64{
-		"USDT": 1000,
-		"USDC": 1000,
-		"BTC": 0.01,
-		"ETH": 0.5,
+	START_CURRENCIES = map[string]MoneyLimits{
+		"USDT": MoneyLimits {600, 600},
+		//"USDC": MoneyLimits {600, 600},
+		//"BTC": MoneyLimits {0.01, 0.01},
+		//"ETH": MoneyLimits {0.5, 0.5},
 	}
 	lastAlertTimes = make(map[string]time.Time)
 )
 
+type MoneyLimits struct {
+	StopPrice float64
+	MaxDealPrice float64
+}
 type TradingPairs []handlers.OrderBookData
 
 func StartAnalyzies() {
@@ -49,8 +54,8 @@ func launchInfiniteTrying() {
 }
 
 func tryDifferentStartCurrencies() {
-	for currency, balance := range START_CURRENCIES {
-		tradingPathsSearching(currency, balance)
+	for currency, limit := range START_CURRENCIES {
+		tradingPathsSearching(currency, limit.MaxDealPrice)
 	}
 }
 
@@ -125,36 +130,40 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 	}
 
 	currentTime := time.Now()
-	pairsNamesString := fmt.Sprintf("%s", strings.Join(pairsNames, "/"))
+	pairsNamesString := strings.Join(pairsNames, "/")
+
+	logger.Logger.Printf("Попытка цикла для пары: %s\n", pairsNamesString)
+	trade.ProcessCycle(startSize, tradingPairs[0].Bid.Price, pairsNames)
+
 	lastAlertTime, exists := lastAlertTimes[pairsNamesString]
-	if exists && currentTime.Sub(lastAlertTime).Minutes() < 1 {
-		return
+	if !exists || exists && currentTime.Sub(lastAlertTime).Minutes() >= 1 {
+		pricesMessage := "Цены:\n"
+		for i := 0; i < 2; i++ {
+			pricesMessage += fmt.Sprintf("%d: Bid Price=%.6f, Size=%.6f, Seq=%d\n", 
+				i+1, 
+				tradingPairs[i].Bid.Price, 
+				tradingPairs[i].Bid.Size, 
+				tradingPairs[i].Bid.Seq)
+		}
+		pricesMessage += fmt.Sprintf("3: Ask Price=%.6f, Size=%.6f, Seq=%d", 
+			tradingPairs[2].Ask.Price, 
+			tradingPairs[2].Ask.Size, 
+			tradingPairs[2].Ask.Seq)
+		message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s, ", profit, profit/orderSize*100, pairsNames, pricesMessage)
+		alerting.SendMessage(message)
+		lastAlertTimes[pairsNamesString] = currentTime
 	}
 
-	// выделить в trade в отдельную функцию
-	qty, err := trade.ProcessFirstPair(startSize, tradingPairs[0].Bid.Price, pairsNames)
-	if err!= nil || qty <= 0.0 {
-		fmt.Println(err)
-		return
+	balances, err := trade.GetWalletBalance()
+	if err != nil {
+		logger.Logger.Printf("Ошибка получения баланса: %s\n", err.Error())
+		alerting.SendMessage("Ошибка получения баланса")
 	}
-	pairsNames = append(pairsNames, pairsNames[0])
-
-	trade.SellAll(pairsNames, qty)
-	pricesMessage := "Цены:\n"
-	for i := 0; i < 2; i++ {
-		pricesMessage += fmt.Sprintf("%d: Bid Price=%.6f, Size=%.6f, Seq=%d\n", 
-			i+1, 
-			tradingPairs[i].Bid.Price, 
-			tradingPairs[i].Bid.Size, 
-			tradingPairs[i].Bid.Seq)
+	alerting.SendMessage(fmt.Sprintf("Баланс: %v\n", balances))
+	for currency, limit := range START_CURRENCIES {
+		if balances[currency] < limit.StopPrice {
+			alerting.SendMessage("Не хватает денег!!!")
+			panic("Выход за критический порог баланса. Остановка работы...")
+		}
 	}
-	pricesMessage += fmt.Sprintf("3: Ask Price=%.6f, Size=%.6f, Seq=%d", 
-		tradingPairs[2].Ask.Price, 
-		tradingPairs[2].Ask.Size, 
-		tradingPairs[2].Ask.Seq)
-	message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s, ", profit, profit/orderSize*100, pairsNames, pricesMessage)
-	alerting.SendMessage(message)
-	lastAlertTimes[pairsNamesString] = currentTime	
 }
-
-

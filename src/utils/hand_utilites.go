@@ -22,6 +22,9 @@ type InstrumentInfo struct {
 		BasePrecision  string `json:"basePrecision"`
 		QuotePrecision string `json:"quotePrecision"`
 	} `json:"lotSizeFilter"`
+	PriceFilter struct {
+		TickSize string `json:"tickSize"`
+	} `json:"priceFilter"`
 }
 
 type InstrumentInfoResult struct {
@@ -87,7 +90,10 @@ func GetCurrenciesPrecision() {
 		for _, instrument := range result.List {
 			basePrecision, _ := strconv.ParseFloat(instrument.LotSizeFilter.BasePrecision, 64)
 			quotePrecision, _ := strconv.ParseFloat(instrument.LotSizeFilter.QuotePrecision, 64)
-
+			tickSize, _ := strconv.ParseFloat(instrument.PriceFilter.TickSize, 64)
+			if tickSize != 0.01 {
+				fmt.Println(tickSize)
+			}
 			precisionMap[symbol] = config.Info{
 				BaseCoin:  instrument.BaseCoin,
 				QuoteCoin: instrument.QuoteCoin,
@@ -95,6 +101,7 @@ func GetCurrenciesPrecision() {
 					BasePrecision: basePrecision,
 					QuotePrecision: quotePrecision,
 				},
+				TickSize: tickSize,
 			}
 		}
 	}

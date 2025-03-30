@@ -5,7 +5,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ADAUSDC": {
     "BaseCoin": "ADA",
@@ -13,7 +14,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ADAUSDT": {
     "BaseCoin": "ADA",
@@ -21,7 +23,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ALGOBTC": {
     "BaseCoin": "ALGO",
@@ -29,7 +32,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-10
-    }
+    },
+    "TickSize": 1e-9
   },
   "ALGOUSDT": {
     "BaseCoin": "ALGO",
@@ -37,7 +41,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "APEUSDC": {
     "BaseCoin": "APE",
@@ -45,7 +50,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "APEUSDT": {
     "BaseCoin": "APE",
@@ -53,7 +59,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "APEXUSDC": {
     "BaseCoin": "APEX",
@@ -61,7 +68,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "APEXUSDT": {
     "BaseCoin": "APEX",
@@ -69,7 +77,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "APTUSDC": {
     "BaseCoin": "APT",
@@ -77,7 +86,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "APTUSDT": {
     "BaseCoin": "APT",
@@ -85,7 +95,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "ARBUSDC": {
     "BaseCoin": "ARB",
@@ -93,7 +104,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ARBUSDT": {
     "BaseCoin": "ARB",
@@ -101,7 +113,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ATOMUSDC": {
     "BaseCoin": "ATOM",
@@ -109,7 +122,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "ATOMUSDT": {
     "BaseCoin": "ATOM",
@@ -117,7 +131,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.001
   },
   "AVAXEUR": {
     "BaseCoin": "AVAX",
@@ -125,7 +140,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "AVAXUSDC": {
     "BaseCoin": "AVAX",
@@ -133,7 +149,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "AVAXUSDT": {
     "BaseCoin": "AVAX",
@@ -141,7 +158,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "BBSOLSOL": {
     "BaseCoin": "BBSOL",
@@ -149,7 +167,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.0001
   },
   "BBSOLUSDC": {
     "BaseCoin": "BBSOL",
@@ -157,7 +176,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "BBSOLUSDT": {
     "BaseCoin": "BBSOL",
@@ -165,7 +185,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "BCHUSDC": {
     "BaseCoin": "BCH",
@@ -173,7 +194,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.1
   },
   "BCHUSDT": {
     "BaseCoin": "BCH",
@@ -181,23 +203,26 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.1
   },
   "BNBUSDC": {
     "BaseCoin": "BNB",
     "QuoteCoin": "USDC",
     "Precision": {
-      "BasePrecision": 0.001,
-      "QuotePrecision": 0.0001
-    }
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.00001
+    },
+    "TickSize": 0.1
   },
   "BNBUSDT": {
     "BaseCoin": "BNB",
     "QuoteCoin": "USDT",
     "Precision": {
-      "BasePrecision": 0.00001,
-      "QuotePrecision": 1e-7
-    }
+      "BasePrecision": 0.0001,
+      "QuotePrecision": 0.000001
+    },
+    "TickSize": 0.01
   },
   "BONKUSDC": {
     "BaseCoin": "BONK",
@@ -205,7 +230,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 1e-8
   },
   "BONKUSDT": {
     "BaseCoin": "BONK",
@@ -213,7 +239,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "BRETTUSDC": {
     "BaseCoin": "BRETT",
@@ -221,7 +248,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.00001
   },
   "BRETTUSDT": {
     "BaseCoin": "BRETT",
@@ -229,79 +257,89 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "BTCBRL": {
     "BaseCoin": "BTC",
     "QuoteCoin": "BRL",
     "Precision": {
-      "BasePrecision": 0.00001,
-      "QuotePrecision": 0.00001
-    }
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 0.000001
+    },
+    "TickSize": 1
   },
   "BTCBRZ": {
     "BaseCoin": "BTC",
     "QuoteCoin": "BRZ",
     "Precision": {
-      "BasePrecision": 0.00001,
-      "QuotePrecision": 0.000001
-    }
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "BTCDAI": {
     "BaseCoin": "BTC",
     "QuoteCoin": "DAI",
     "Precision": {
       "BasePrecision": 0.000001,
-      "QuotePrecision": 1e-8
-    }
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "BTCEUR": {
     "BaseCoin": "BTC",
     "QuoteCoin": "EUR",
     "Precision": {
       "BasePrecision": 0.000001,
-      "QuotePrecision": 1e-8
-    }
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "BTCPLN": {
     "BaseCoin": "BTC",
     "QuoteCoin": "PLN",
     "Precision": {
-      "BasePrecision": 0.00001,
-      "QuotePrecision": 0.00001
-    }
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 0.000001
+    },
+    "TickSize": 1
   },
   "BTCTRY": {
     "BaseCoin": "BTC",
     "QuoteCoin": "TRY",
     "Precision": {
-      "BasePrecision": 0.00001,
-      "QuotePrecision": 0.00001
-    }
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 0.000001
+    },
+    "TickSize": 1
   },
   "BTCUSDC": {
     "BaseCoin": "BTC",
     "QuoteCoin": "USDC",
     "Precision": {
       "BasePrecision": 0.000001,
-      "QuotePrecision": 1e-8
-    }
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "BTCUSDE": {
     "BaseCoin": "BTC",
     "QuoteCoin": "USDE",
     "Precision": {
       "BasePrecision": 0.000001,
-      "QuotePrecision": 1e-8
-    }
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "BTCUSDT": {
     "BaseCoin": "BTC",
     "QuoteCoin": "USDT",
     "Precision": {
       "BasePrecision": 0.000001,
-      "QuotePrecision": 1e-8
-    }
+      "QuotePrecision": 1e-7
+    },
+    "TickSize": 0.1
   },
   "CATIEUR": {
     "BaseCoin": "CATI",
@@ -309,7 +347,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "CATIUSDC": {
     "BaseCoin": "CATI",
@@ -317,7 +356,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "CATIUSDT": {
     "BaseCoin": "CATI",
@@ -325,7 +365,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "CHZUSDC": {
     "BaseCoin": "CHZ",
@@ -333,7 +374,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "CHZUSDT": {
     "BaseCoin": "CHZ",
@@ -341,7 +383,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "DAIUSDT": {
     "BaseCoin": "DAI",
@@ -349,7 +392,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "DOGEEUR": {
     "BaseCoin": "DOGE",
@@ -357,7 +401,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "DOGEUSDC": {
     "BaseCoin": "DOGE",
@@ -365,7 +410,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.00001
   },
   "DOGEUSDT": {
     "BaseCoin": "DOGE",
@@ -373,7 +419,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.00001
   },
   "DOGSEUR": {
     "BaseCoin": "DOGS",
@@ -381,7 +428,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 1e-7
   },
   "DOGSUSDC": {
     "BaseCoin": "DOGS",
@@ -389,7 +437,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 1e-7
   },
   "DOGSUSDT": {
     "BaseCoin": "DOGS",
@@ -397,7 +446,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 1e-7
   },
   "DOTBTC": {
     "BaseCoin": "DOT",
@@ -405,7 +455,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-10
-    }
+    },
+    "TickSize": 1e-8
   },
   "DOTUSDC": {
     "BaseCoin": "DOT",
@@ -413,7 +464,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.001
   },
   "DOTUSDT": {
     "BaseCoin": "DOT",
@@ -421,7 +473,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.001
   },
   "ENAEUR": {
     "BaseCoin": "ENA",
@@ -429,7 +482,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ENAUSDT": {
     "BaseCoin": "ENA",
@@ -437,7 +491,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "EOSUSDC": {
     "BaseCoin": "EOS",
@@ -445,7 +500,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "EOSUSDT": {
     "BaseCoin": "EOS",
@@ -453,7 +509,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ETHBRL": {
     "BaseCoin": "ETH",
@@ -461,7 +518,8 @@
     "Precision": {
       "BasePrecision": 0.0001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.01
   },
   "ETHBTC": {
     "BaseCoin": "ETH",
@@ -469,7 +527,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-11
-    }
+    },
+    "TickSize": 0.000001
   },
   "ETHDAI": {
     "BaseCoin": "ETH",
@@ -477,7 +536,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "ETHEUR": {
     "BaseCoin": "ETH",
@@ -485,7 +545,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "ETHPLN": {
     "BaseCoin": "ETH",
@@ -493,7 +554,8 @@
     "Precision": {
       "BasePrecision": 0.0001,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 1
   },
   "ETHTRY": {
     "BaseCoin": "ETH",
@@ -501,7 +563,8 @@
     "Precision": {
       "BasePrecision": 0.0001,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 1
   },
   "ETHUSDC": {
     "BaseCoin": "ETH",
@@ -509,7 +572,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "ETHUSDE": {
     "BaseCoin": "ETH",
@@ -517,7 +581,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "ETHUSDT": {
     "BaseCoin": "ETH",
@@ -525,7 +590,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "FETUSDC": {
     "BaseCoin": "FET",
@@ -533,7 +599,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "FETUSDT": {
     "BaseCoin": "FET",
@@ -541,7 +608,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "FILUSDC": {
     "BaseCoin": "FIL",
@@ -549,7 +617,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "FILUSDT": {
     "BaseCoin": "FIL",
@@ -557,7 +626,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "FLOKIUSDC": {
     "BaseCoin": "FLOKI",
@@ -565,7 +635,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 1e-8
   },
   "FLOKIUSDT": {
     "BaseCoin": "FLOKI",
@@ -573,7 +644,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "GMTUSDC": {
     "BaseCoin": "GMT",
@@ -581,7 +653,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "GMTUSDT": {
     "BaseCoin": "GMT",
@@ -589,7 +662,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "HFTUSDC": {
     "BaseCoin": "HFT",
@@ -597,7 +671,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "HFTUSDT": {
     "BaseCoin": "HFT",
@@ -605,7 +680,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "HMSTRUSDC": {
     "BaseCoin": "HMSTR",
@@ -613,7 +689,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.000001
   },
   "HMSTRUSDT": {
     "BaseCoin": "HMSTR",
@@ -621,7 +698,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.000001
   },
   "ICPUSDC": {
     "BaseCoin": "ICP",
@@ -629,7 +707,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "ICPUSDT": {
     "BaseCoin": "ICP",
@@ -637,7 +716,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "INJUSDC": {
     "BaseCoin": "INJ",
@@ -645,7 +725,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "INJUSDT": {
     "BaseCoin": "INJ",
@@ -653,7 +734,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "JASMYUSDC": {
     "BaseCoin": "JASMY",
@@ -661,7 +743,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "JASMYUSDT": {
     "BaseCoin": "JASMY",
@@ -669,7 +752,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "KASUSDC": {
     "BaseCoin": "KAS",
@@ -677,7 +761,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "KASUSDT": {
     "BaseCoin": "KAS",
@@ -685,7 +770,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.00001
   },
   "LDOUSDC": {
     "BaseCoin": "LDO",
@@ -693,7 +779,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "LDOUSDT": {
     "BaseCoin": "LDO",
@@ -701,7 +788,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "LINKEUR": {
     "BaseCoin": "LINK",
@@ -709,7 +797,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "LINKUSDC": {
     "BaseCoin": "LINK",
@@ -717,7 +806,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "LINKUSDT": {
     "BaseCoin": "LINK",
@@ -725,15 +815,17 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "LTCBTC": {
     "BaseCoin": "LTC",
     "QuoteCoin": "BTC",
     "Precision": {
-      "BasePrecision": 0.01,
-      "QuotePrecision": 1e-8
-    }
+      "BasePrecision": 0.001,
+      "QuotePrecision": 1e-9
+    },
+    "TickSize": 0.000001
   },
   "LTCEUR": {
     "BaseCoin": "LTC",
@@ -741,7 +833,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "LTCUSDC": {
     "BaseCoin": "LTC",
@@ -749,7 +842,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "LTCUSDT": {
     "BaseCoin": "LTC",
@@ -757,23 +851,26 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "LUNCUSDC": {
     "BaseCoin": "LUNC",
     "QuoteCoin": "USDC",
     "Precision": {
-      "BasePrecision": 0.001,
-      "QuotePrecision": 1e-11
-    }
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    },
+    "TickSize": 1e-8
   },
   "LUNCUSDT": {
     "BaseCoin": "LUNC",
     "QuoteCoin": "USDT",
     "Precision": {
-      "BasePrecision": 0.001,
-      "QuotePrecision": 1e-11
-    }
+      "BasePrecision": 0.1,
+      "QuotePrecision": 1e-9
+    },
+    "TickSize": 1e-8
   },
   "MANABTC": {
     "BaseCoin": "MANA",
@@ -781,7 +878,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "MANAUSDC": {
     "BaseCoin": "MANA",
@@ -789,7 +887,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "MANAUSDT": {
     "BaseCoin": "MANA",
@@ -797,7 +896,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "METHETH": {
     "BaseCoin": "METH",
@@ -805,7 +905,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 0.0001
   },
   "METHUSDT": {
     "BaseCoin": "METH",
@@ -813,7 +914,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "MEWUSDC": {
     "BaseCoin": "MEW",
@@ -821,7 +923,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.000001
   },
   "MEWUSDT": {
     "BaseCoin": "MEW",
@@ -829,7 +932,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.000001
   },
   "MNTBTC": {
     "BaseCoin": "MNT",
@@ -837,7 +941,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-10
-    }
+    },
+    "TickSize": 1e-8
   },
   "MNTUSDC": {
     "BaseCoin": "MNT",
@@ -845,7 +950,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "MNTUSDT": {
     "BaseCoin": "MNT",
@@ -853,7 +959,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "NEAREUR": {
     "BaseCoin": "NEAR",
@@ -861,7 +968,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.001
   },
   "NEARUSDC": {
     "BaseCoin": "NEAR",
@@ -869,7 +977,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.001
   },
   "NEARUSDT": {
     "BaseCoin": "NEAR",
@@ -877,7 +986,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "NOTUSDC": {
     "BaseCoin": "NOT",
@@ -885,7 +995,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.000001
   },
   "NOTUSDT": {
     "BaseCoin": "NOT",
@@ -893,7 +1004,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.000001
   },
   "ONDOEUR": {
     "BaseCoin": "ONDO",
@@ -901,7 +1013,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ONDOUSDC": {
     "BaseCoin": "ONDO",
@@ -909,7 +1022,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ONDOUSDT": {
     "BaseCoin": "ONDO",
@@ -917,7 +1031,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "OPUSDC": {
     "BaseCoin": "OP",
@@ -925,7 +1040,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "OPUSDT": {
     "BaseCoin": "OP",
@@ -933,7 +1049,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "PEPEEUR": {
     "BaseCoin": "PEPE",
@@ -941,7 +1058,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 1e-8
   },
   "PEPEUSDC": {
     "BaseCoin": "PEPE",
@@ -949,7 +1067,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 1e-8
   },
   "PEPEUSDT": {
     "BaseCoin": "PEPE",
@@ -957,7 +1076,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 1e-8
   },
   "SANDBTC": {
     "BaseCoin": "SAND",
@@ -965,7 +1085,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "SANDUSDC": {
     "BaseCoin": "SAND",
@@ -973,7 +1094,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SANDUSDT": {
     "BaseCoin": "SAND",
@@ -981,7 +1103,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SEIUSDC": {
     "BaseCoin": "SEI",
@@ -989,7 +1112,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SEIUSDT": {
     "BaseCoin": "SEI",
@@ -997,7 +1121,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SHIBEUR": {
     "BaseCoin": "SHIB",
@@ -1005,7 +1130,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "SHIBUSDC": {
     "BaseCoin": "SHIB",
@@ -1013,7 +1139,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "SHIBUSDT": {
     "BaseCoin": "SHIB",
@@ -1021,7 +1148,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "SOLBRL": {
     "BaseCoin": "SOL",
@@ -1029,15 +1157,17 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.1
   },
   "SOLBTC": {
     "BaseCoin": "SOL",
     "QuoteCoin": "BTC",
     "Precision": {
-      "BasePrecision": 0.01,
-      "QuotePrecision": 1e-9
-    }
+      "BasePrecision": 0.001,
+      "QuotePrecision": 1e-10
+    },
+    "TickSize": 1e-7
   },
   "SOLEUR": {
     "BaseCoin": "SOL",
@@ -1045,7 +1175,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "SOLUSDC": {
     "BaseCoin": "SOL",
@@ -1053,7 +1184,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "SOLUSDE": {
     "BaseCoin": "SOL",
@@ -1061,7 +1193,8 @@
     "Precision": {
       "BasePrecision": 0.0001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.01
   },
   "SOLUSDT": {
     "BaseCoin": "SOL",
@@ -1069,7 +1202,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.01
   },
   "STETHEUR": {
     "BaseCoin": "STETH",
@@ -1077,7 +1211,8 @@
     "Precision": {
       "BasePrecision": 0.0001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.01
   },
   "STETHUSDT": {
     "BaseCoin": "STETH",
@@ -1085,7 +1220,8 @@
     "Precision": {
       "BasePrecision": 0.00001,
       "QuotePrecision": 1e-7
-    }
+    },
+    "TickSize": 0.01
   },
   "STRKUSDC": {
     "BaseCoin": "STRK",
@@ -1093,7 +1229,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "STRKUSDT": {
     "BaseCoin": "STRK",
@@ -1101,7 +1238,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SUIUSDC": {
     "BaseCoin": "SUI",
@@ -1109,7 +1247,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SUIUSDT": {
     "BaseCoin": "SUI",
@@ -1117,7 +1256,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "SWELLUSDC": {
     "BaseCoin": "SWELL",
@@ -1125,7 +1265,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.00001
   },
   "SWELLUSDT": {
     "BaseCoin": "SWELL",
@@ -1133,7 +1274,8 @@
     "Precision": {
       "BasePrecision": 1,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.00001
   },
   "TIAUSDC": {
     "BaseCoin": "TIA",
@@ -1141,7 +1283,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "TIAUSDT": {
     "BaseCoin": "TIA",
@@ -1149,7 +1292,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "TONEUR": {
     "BaseCoin": "TON",
@@ -1157,7 +1301,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "TONUSDC": {
     "BaseCoin": "TON",
@@ -1165,7 +1310,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "TONUSDT": {
     "BaseCoin": "TON",
@@ -1173,7 +1319,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "TRUMPUSDC": {
     "BaseCoin": "TRUMP",
@@ -1181,7 +1328,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "TRUMPUSDT": {
     "BaseCoin": "TRUMP",
@@ -1189,7 +1337,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.01
   },
   "TRXUSDC": {
     "BaseCoin": "TRX",
@@ -1197,7 +1346,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "TRXUSDT": {
     "BaseCoin": "TRX",
@@ -1205,7 +1355,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "UNIUSDC": {
     "BaseCoin": "UNI",
@@ -1213,7 +1364,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "UNIUSDT": {
     "BaseCoin": "UNI",
@@ -1221,7 +1373,8 @@
     "Precision": {
       "BasePrecision": 0.001,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.001
   },
   "USDCBRL": {
     "BaseCoin": "USDC",
@@ -1229,7 +1382,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.001
   },
   "USDCEUR": {
     "BaseCoin": "USDC",
@@ -1237,7 +1391,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "USDCUSDT": {
     "BaseCoin": "USDC",
@@ -1245,7 +1400,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "USDEUSDC": {
     "BaseCoin": "USDE",
@@ -1253,7 +1409,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "USDEUSDT": {
     "BaseCoin": "USDE",
@@ -1261,7 +1418,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "USDTBRL": {
     "BaseCoin": "USDT",
@@ -1269,7 +1427,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.001
   },
   "USDTBRZ": {
     "BaseCoin": "USDT",
@@ -1277,7 +1436,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "USDTEUR": {
     "BaseCoin": "USDT",
@@ -1285,31 +1445,35 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "USDTPLN": {
     "BaseCoin": "USDT",
     "QuoteCoin": "PLN",
     "Precision": {
-      "BasePrecision": 1,
-      "QuotePrecision": 0.001
-    }
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.0001
+    },
+    "TickSize": 0.001
   },
   "USDTTRY": {
     "BaseCoin": "USDT",
     "QuoteCoin": "TRY",
     "Precision": {
-      "BasePrecision": 1,
-      "QuotePrecision": 0.01
-    }
+      "BasePrecision": 0.1,
+      "QuotePrecision": 0.001
+    },
+    "TickSize": 0.01
   },
   "WBTCBTC": {
     "BaseCoin": "WBTC",
     "QuoteCoin": "BTC",
     "Precision": {
-      "BasePrecision": 0.0001,
-      "QuotePrecision": 1e-8
-    }
+      "BasePrecision": 0.000001,
+      "QuotePrecision": 1e-10
+    },
+    "TickSize": 0.0001
   },
   "WBTCUSDT": {
     "BaseCoin": "WBTC",
@@ -1317,7 +1481,8 @@
     "Precision": {
       "BasePrecision": 0.000001,
       "QuotePrecision": 1e-8
-    }
+    },
+    "TickSize": 0.01
   },
   "WIFEUR": {
     "BaseCoin": "WIF",
@@ -1325,7 +1490,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.0001
-    }
+    },
+    "TickSize": 0.001
   },
   "WIFUSDC": {
     "BaseCoin": "WIF",
@@ -1333,7 +1499,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "WIFUSDT": {
     "BaseCoin": "WIF",
@@ -1341,7 +1508,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "WLDEUR": {
     "BaseCoin": "WLD",
@@ -1349,7 +1517,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "WLDUSDC": {
     "BaseCoin": "WLD",
@@ -1357,7 +1526,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "WLDUSDT": {
     "BaseCoin": "WLD",
@@ -1365,7 +1535,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "XLMBTC": {
     "BaseCoin": "XLM",
@@ -1373,7 +1544,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-11
-    }
+    },
+    "TickSize": 1e-10
   },
   "XLMUSDC": {
     "BaseCoin": "XLM",
@@ -1381,7 +1553,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.0001
   },
   "XLMUSDT": {
     "BaseCoin": "XLM",
@@ -1389,7 +1562,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.0001
   },
   "XRPBTC": {
     "BaseCoin": "XRP",
@@ -1397,7 +1571,8 @@
     "Precision": {
       "BasePrecision": 0.1,
       "QuotePrecision": 1e-9
-    }
+    },
+    "TickSize": 1e-8
   },
   "XRPEUR": {
     "BaseCoin": "XRP",
@@ -1405,7 +1580,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "XRPUSDC": {
     "BaseCoin": "XRP",
@@ -1413,7 +1589,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "XRPUSDT": {
     "BaseCoin": "XRP",
@@ -1421,7 +1598,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ZKUSDC": {
     "BaseCoin": "ZK",
@@ -1429,7 +1607,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ZKUSDT": {
     "BaseCoin": "ZK",
@@ -1437,7 +1616,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.000001
-    }
+    },
+    "TickSize": 0.0001
   },
   "ZROUSDC": {
     "BaseCoin": "ZRO",
@@ -1445,7 +1625,8 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   },
   "ZROUSDT": {
     "BaseCoin": "ZRO",
@@ -1453,6 +1634,7 @@
     "Precision": {
       "BasePrecision": 0.01,
       "QuotePrecision": 0.00001
-    }
+    },
+    "TickSize": 0.001
   }
 }
