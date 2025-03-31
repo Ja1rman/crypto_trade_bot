@@ -17,14 +17,18 @@ var (
 	client = bybit.NewBybitHttpClient(config.API_KEY, config.API_KEY_SECRET, bybit.WithBaseURL(config.NET))
 )
 
+
 func ProcessCycle(startSize float64, firstOrderPrice float64, pairsNames []string) {
 	qty, err := ProcessFirstPair(startSize, firstOrderPrice, pairsNames)
 	if err!= nil || qty <= 0.0 {
-		logger.Logger.Println(err)
+		logger.Logger.Printf("Не получилось совершить сделку, error: %s\n", err)
 		return
 	}
 	pairsNames = append(pairsNames, pairsNames[0])
-	SellAll(pairsNames, qty)
+	err = SellAll(pairsNames, qty)
+	if err != nil {
+		logger.Logger.Println(err)
+	}
 }
 
 func SellAll(pairsNames []string, qty float64) error {
@@ -62,7 +66,7 @@ func CreateSellOrder(info config.Info, size float64, symbol string, coin string)
 	}
 	orderInfo, err := GetOrderInfo(orderID)
 	if err != nil {
-		fmt.Println(err)
+		logger.Logger.Println(err)
 		return 0.0, err
 	}
 	if len(orderInfo) == 0 {
@@ -74,7 +78,6 @@ func CreateSellOrder(info config.Info, size float64, symbol string, coin string)
 		return SumQty(orderInfo, true), nil
 	}
 }
-
 
 func ProcessFirstPair(size float64, price float64, pairsNames []string) (float64, error) {
 	symbol, info, err := FindSymbol(pairsNames[0], pairsNames[1])
@@ -103,20 +106,16 @@ func createFirstOrder(info config.Info, size float64, price float64, symbol stri
 		side = "Sell"
 		size = size * price
 		price = 1.0 / price
-		size = RoundCustomStep(size, info.Precision.QuotePrecision)
-	} else {
-		size = RoundCustomStep(size, info.Precision.BasePrecision)
-	}
+	} 
+	size = RoundCustomStep(size, info.Precision.BasePrecision)
 	price = RoundCustomStep(price, info.TickSize)
 
 	orderID, err := CreateOrder(symbol, price, size, coinType, side, "Limit")
 	if err != nil {
-		logger.Logger.Println(err)
 		return 0.0, err
 	}
 	orderInfo, err := GetOrderInfo(orderID)
 	if err != nil {
-		logger.Logger.Println(err)
 		return 0.0, err
 	}
 	if len(orderInfo) == 0 {
@@ -130,7 +129,6 @@ func createFirstOrder(info config.Info, size float64, price float64, symbol stri
 }
 
 func CreateOrder(symbol string, price float64, qty float64, coinType string, side string, orderType string) (string, error) {
-
 	params := map[string]interface{}{
 		"category":    "spot",
 		"symbol":      symbol,
@@ -138,14 +136,13 @@ func CreateOrder(symbol string, price float64, qty float64, coinType string, sid
 		"orderType":   orderType, // Market, Limit
 		"qty":         fmt.Sprint(qty),
 		"marketUnit":  coinType, // quoteCoin, baseCoin
-		
 	}
 	if orderType == "Limit" {
 		params["price"] = fmt.Sprint(price)
 		params["timeInForce"] = "IOC"
 	}
 
-	logInfo := fmt.Sprintf("Price: %f, Qty: %f, Symbol: %s", price, qty, symbol)
+	logInfo := fmt.Sprintf("params: %v", params)
 	serverResponse, err := client.NewUtaBybitServiceWithParams(params).PlaceOrder(context.Background())
 	if err != nil || serverResponse.RetCode != 0 {
 		return "", fmt.Errorf("invalid request. RetCode: %d, RetMsg: %s, LogInfo: %s, Error: %v", serverResponse.RetCode, serverResponse.RetMsg, logInfo, err)
@@ -162,7 +159,7 @@ func CreateOrder(symbol string, price float64, qty float64, coinType string, sid
 }
 
 func RoundCustomStep(number, step float64) float64 {
-	return math.Round(number*step) / step
+	return math.Floor(number*step) / step
 }
 
 func SumQty(orders []map[string]interface{}, invertion bool) float64 {
@@ -178,6 +175,11 @@ func SumQty(orders []map[string]interface{}, invertion bool) float64 {
 			logger.Logger.Println("Ошибка: avgPrice не является строкой")
 			continue
 		}
+		cumExecFeeStr, ok := order["cumExecFee"].(string)
+		if !ok {
+			logger.Logger.Println("Ошибка: cumExecFee не является строкой")
+			continue
+		}
 		qty, err := strconv.ParseFloat(qtyStr, 64)
 		if err != nil {
 			logger.Logger.Println("Ошибка конвертации qty:", err)
@@ -188,11 +190,17 @@ func SumQty(orders []map[string]interface{}, invertion bool) float64 {
 			logger.Logger.Println("Ошибка конвертации qty:", err)
 			continue
 		}
+		cumExecFee, err := strconv.ParseFloat(cumExecFeeStr, 64)
+		if err != nil {
+			logger.Logger.Println("Ошибка конвертации cumExecFee:", err)
+			continue
+		}
 		if invertion {
 			res += qty * avgPrice
 		} else {
 			res += qty
 		}
+		res -= cumExecFee
 	}
 	return res
 }
@@ -238,8 +246,8 @@ func SaveBookInfo(symbol string) {
 	logger.Logger.Println(response)
 }
 
-func GetWalletBalance() (map[string]float64, error) {
-	params := map[string]interface{}{"accountType": "UNIFIED", "coin": "USDT,USDC"}
+func GetWalletBalance(coin string) (map[string]float64, error) {
+	params := map[string]interface{}{"accountType": "UNIFIED", "coin": coin}
 	accountResult, err := client.NewUtaBybitServiceWithParams(params).GetAccountWallet(context.Background())
 	if err != nil {
 		return map[string]float64{}, fmt.Errorf("ошибка получения баланса: %s", err)

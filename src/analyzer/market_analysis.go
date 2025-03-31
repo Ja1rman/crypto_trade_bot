@@ -5,23 +5,12 @@ import (
 	"math"
 	"strings"
 	"time"
+	"runtime"
 
 	"crypto_trading/src/alerting"
 	"crypto_trading/src/handlers"
 	"crypto_trading/src/logger"
 	"crypto_trading/src/trade"
-)
-
-var(
-	MIN_PROFIT float64 = 0.0158 // около 0.58% это комса
-	MIN_MONEY_DEAL float64 = 0.3
-	START_CURRENCIES = map[string]MoneyLimits{
-		"USDT": MoneyLimits {600, 600},
-		//"USDC": MoneyLimits {600, 600},
-		//"BTC": MoneyLimits {0.01, 0.01},
-		//"ETH": MoneyLimits {0.5, 0.5},
-	}
-	lastAlertTimes = make(map[string]time.Time)
 )
 
 type MoneyLimits struct {
@@ -30,12 +19,20 @@ type MoneyLimits struct {
 }
 type TradingPairs []handlers.OrderBookData
 
-func StartAnalyzies() {
-	go launchInfiniteTrying()
-	select {}
-}
+var(
+	MIN_PROFIT float64 = 0.0158 // около 0.58% это комса
+	MIN_MONEY_DEAL float64 = 0.3
+	START_CURRENCIES = map[string]MoneyLimits{
+		"USDT": {545, 545.},
+		//"USDC": {600, 600},
+		//"BTC": {0.01, 0.01},
+		//"ETH": {0.5, 0.5},
+	}
+	lastAlertTimes = make(map[string]time.Time)
+)
 
-func launchInfiniteTrying() {
+
+func LaunchInfiniteAnalyze() {
 	lastNotifier := time.Now()
 
 	for {
@@ -44,9 +41,9 @@ func launchInfiniteTrying() {
 		//elapsed := time.Now().UnixNano() - start
 		//fmt.Println(fmt.Sprintf("Время выполнения анализа: %d", elapsed))
 		now := time.Now()
-		if now.Sub(lastNotifier) > time.Hour {
+		if now.Sub(lastNotifier) > time.Minute * 10 {
 			elapsed := now.UnixNano() - start
-			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d", elapsed))
+			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d, Горутин в работе: %d", elapsed, runtime.NumGoroutine()))
 			// go alerting.PrintPrices()
 			lastNotifier = now
 		}
@@ -60,15 +57,14 @@ func tryDifferentStartCurrencies() {
 }
 
 func tradingPathsSearching(currency string, balance float64) {
-	handlers.PRICES.Lock()
-	defer handlers.PRICES.Unlock()
-	for secondCurrency, secondCurrencyOrderBookData := range handlers.PRICES.Cache[currency] {
-		_, exists := handlers.PRICES.Cache[secondCurrency]
+	cache := handlers.DeepCopyCache()
+	for secondCurrency, secondCurrencyOrderBookData := range cache[currency] {
+		_, exists := cache[secondCurrency]
 		if !exists {
 			continue
 		}
-		for thirdCurrency, thirdCurrencyOrderBookData := range handlers.PRICES.Cache[secondCurrency] {
-			lastOrderBookData, exists := handlers.PRICES.Cache[thirdCurrency]
+		for thirdCurrency, thirdCurrencyOrderBookData := range cache[secondCurrency] {
+			lastOrderBookData, exists := cache[thirdCurrency]
 			if !exists {
 				continue
 			}
@@ -86,7 +82,10 @@ func tradingPathsSearching(currency string, balance float64) {
 			}
 			profit := AnalizeOfferProfit(tradingPairs, startSize)
 			pairsNames := []string{currency, secondCurrency, thirdCurrency}
-			BuyDecision(tradingPairs, profit, pairsNames, startSize, MIN_MONEY_DEAL * balance)
+			bought := BuyDecision(tradingPairs, profit, pairsNames, startSize, MIN_MONEY_DEAL * balance)
+			if bought {
+				return
+			}
 		}
 	}
 }
@@ -123,10 +122,10 @@ func AnalizeOfferProfit(tradingPairs TradingPairs, startSize float64) float64 {
 	return finalBalance - startBalance
 }
 
-func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string, startSize float64, moneyAmount float64) {
+func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string, startSize float64, moneyAmount float64) bool {
 	orderSize := startSize * tradingPairs[0].Bid.Price
 	if profit/orderSize < MIN_PROFIT || orderSize < moneyAmount {
-		return
+		return false
 	}
 
 	currentTime := time.Now()
@@ -154,10 +153,11 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 		lastAlertTimes[pairsNamesString] = currentTime
 	}
 
-	balances, err := trade.GetWalletBalance()
+	balances, err := trade.GetWalletBalance("USDT,USDC")
 	if err != nil {
 		logger.Logger.Printf("Ошибка получения баланса: %s\n", err.Error())
 		alerting.SendMessage("Ошибка получения баланса")
+		return true
 	}
 	alerting.SendMessage(fmt.Sprintf("Баланс: %v\n", balances))
 	for currency, limit := range START_CURRENCIES {
@@ -166,4 +166,5 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 			panic("Выход за критический порог баланса. Остановка работы...")
 		}
 	}
+	return true
 }

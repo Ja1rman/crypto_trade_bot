@@ -120,3 +120,27 @@ func updatePriceMap(first string, second string, newItem OrderBookData) {
 	PRICES.Unlock()
 }
 
+func DeepCopyCache() map[string]map[string]OrderBookData {
+	PRICES.Lock()
+	defer PRICES.Unlock()
+	res := make(map[string]map[string]OrderBookData)
+	for key1, subMap := range PRICES.Cache {
+		newSubMap := make(map[string]OrderBookData)
+		for key2, orderBook := range subMap {
+			newSubMap[key2] = OrderBookData{
+				Ask: StockExchangeGlassNote{
+					Price: orderBook.Ask.Price,
+					Size:  orderBook.Ask.Size,
+					Seq:   orderBook.Ask.Seq,
+				},
+				Bid: StockExchangeGlassNote{
+					Price: orderBook.Bid.Price,
+					Size:  orderBook.Bid.Size,
+					Seq:   orderBook.Bid.Seq,
+				},
+			}
+		}
+		res[key1] = newSubMap
+	}
+	return res
+}

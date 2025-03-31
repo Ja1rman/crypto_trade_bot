@@ -24,7 +24,7 @@ type Precision struct {
 }
 
 var (
-	NET = bybit.TESTNET
+	NET = bybit.MAINNET
 
 	SUBSCRIBE_TICKERS_LIST = map[string]Info{
 		"ADAEUR": {

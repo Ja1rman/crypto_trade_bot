@@ -72,6 +72,7 @@ func startConnection() {
 func main() {
 	logger.LoggerSetup()
 	go startConnection()
-	go analyzer.StartAnalyzies()
+	go analyzer.LaunchInfiniteAnalyze()
 	select {}
+	
 }
