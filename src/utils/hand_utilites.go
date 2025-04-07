@@ -58,7 +58,7 @@ func getTickers(apiKey string, apiSecret string) {
 	writeToFile(results, "results.json")
 }
 
-func GetCurrenciesPrecision() {
+func GetCurrenciesPrecision() {  // Сделать обратную точность (1/x)
 	client := bybit.NewBybitHttpClient("", "", bybit.WithBaseURL(bybit.MAINNET))
 	precisionMap := make(map[string]config.Info)
 

@@ -38,7 +38,7 @@ type OrderBookJsonData struct {
 	Seq int64 `json:"seq"`
 }
 
-func parseFloat(s string) float64 {
+func ParseFloat(s string) float64 {
 	value, err := strconv.ParseFloat(s, 64)
 	if err != nil {
 		logger.Logger.Println("Error parsing float:", err)
@@ -69,8 +69,8 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 	if hasBids {
 		bestBid := msg.Bids[0]
 		newItem.Bid = StockExchangeGlassNote{
-			Price: parseFloat(bestBid[0]),
-			Size: parseFloat(bestBid[1]),
+			Price: ParseFloat(bestBid[0]),
+			Size: ParseFloat(bestBid[1]),
 			Seq: msg.Seq,
 		}
 	}
@@ -78,26 +78,26 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 	if hasAsks {
 		bestAsk := msg.Asks[0]
 		newItem.Ask = StockExchangeGlassNote{
-			Price: parseFloat(bestAsk[0]),
-			Size: parseFloat(bestAsk[1]),
+			Price: ParseFloat(bestAsk[0]),
+			Size: ParseFloat(bestAsk[1]),
 			Seq: msg.Seq,
 		}
 	}
 
 	updatePriceMap(value.QuoteCoin, value.BaseCoin, newItem)
-	newItem.Bid.Size = newItem.Bid.Size * newItem.Bid.Price
-	if newItem.Bid.Price == 0 {
-		newItem.Bid.Price = 0
-	} else {
-		newItem.Bid.Price = 1 / newItem.Bid.Price
+	newItem2 := OrderBookData{
+		Ask: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
+		Bid: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
 	}
-	newItem.Ask.Size = newItem.Ask.Size * newItem.Ask.Price
-	if newItem.Ask.Price == 0 {
-		newItem.Ask.Price = 0
-	} else {
-		newItem.Ask.Price = 1 / newItem.Ask.Price
+	newItem2.Ask.Size = newItem.Bid.Size * newItem.Bid.Price
+	if newItem.Bid.Price > 0 {
+		newItem2.Ask.Price = 1 / newItem.Bid.Price
 	}
-	updatePriceMap(value.BaseCoin, value.QuoteCoin, newItem)
+	newItem2.Bid.Size = newItem.Ask.Size * newItem.Ask.Price
+	if newItem.Ask.Price > 0 {
+		newItem2.Bid.Price = 1 / newItem.Ask.Price
+	}
+	updatePriceMap(value.BaseCoin, value.QuoteCoin, newItem2)
 }
 
 func updatePriceMap(first string, second string, newItem OrderBookData) {

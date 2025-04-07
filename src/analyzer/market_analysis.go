@@ -9,8 +9,8 @@ import (
 
 	"crypto_trading/src/alerting"
 	"crypto_trading/src/handlers"
-	"crypto_trading/src/logger"
-	"crypto_trading/src/trade"
+	//"crypto_trading/src/logger"
+	//"crypto_trading/src/trade"
 )
 
 type MoneyLimits struct {
@@ -20,20 +20,20 @@ type MoneyLimits struct {
 type TradingPairs []handlers.OrderBookData
 
 var(
-	MIN_PROFIT float64 = 0.0158 // около 0.58% это комса
+	MIN_PROFIT float64 = 0.005 + 0.0058 // около 0.58% это комса
 	MIN_MONEY_DEAL float64 = 0.3
 	START_CURRENCIES = map[string]MoneyLimits{
-		"USDT": {545, 545.},
-		//"USDC": {600, 600},
-		//"BTC": {0.01, 0.01},
-		//"ETH": {0.5, 0.5},
+		"USDT": {800, 800.},
+		"USDC": {800, 800},
+		"BTC": {0.01, 0.01},
+		"ETH": {0.5, 0.5},
 	}
 	lastAlertTimes = make(map[string]time.Time)
 )
 
 
 func LaunchInfiniteAnalyze() {
-	lastNotifier := time.Now()
+	lastNotifier := time.Now().Add(time.Minute - time.Hour)
 
 	for {
 		start := time.Now().UnixNano()
@@ -41,7 +41,7 @@ func LaunchInfiniteAnalyze() {
 		//elapsed := time.Now().UnixNano() - start
 		//fmt.Println(fmt.Sprintf("Время выполнения анализа: %d", elapsed))
 		now := time.Now()
-		if now.Sub(lastNotifier) > time.Minute * 10 {
+		if now.Sub(lastNotifier) > time.Hour {
 			elapsed := now.UnixNano() - start
 			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d, Горутин в работе: %d", elapsed, runtime.NumGoroutine()))
 			// go alerting.PrintPrices()
@@ -131,8 +131,8 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 	currentTime := time.Now()
 	pairsNamesString := strings.Join(pairsNames, "/")
 
-	logger.Logger.Printf("Попытка цикла для пары: %s\n", pairsNamesString)
-	trade.ProcessCycle(startSize, tradingPairs[0].Bid.Price, pairsNames)
+	//logger.Logger.Printf("Попытка цикла для пары: %s\n", pairsNamesString)
+	//trade.ProcessCycle(startSize, tradingPairs[0].Bid.Price, pairsNames)
 
 	lastAlertTime, exists := lastAlertTimes[pairsNamesString]
 	if !exists || exists && currentTime.Sub(lastAlertTime).Minutes() >= 1 {
@@ -142,17 +142,28 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 				i+1, 
 				tradingPairs[i].Bid.Price, 
 				tradingPairs[i].Bid.Size, 
-				tradingPairs[i].Bid.Seq)
+				tradingPairs[i].Bid.Seq,
+			)
+			pricesMessage += fmt.Sprintf("Ask Price=%.6f, Size=%.6f, Seq=%d\n", 
+				tradingPairs[i].Ask.Price, 
+				tradingPairs[i].Ask.Size, 
+				tradingPairs[i].Ask.Seq,
+			)
 		}
 		pricesMessage += fmt.Sprintf("3: Ask Price=%.6f, Size=%.6f, Seq=%d", 
+			tradingPairs[2].Bid.Price, 
+			tradingPairs[2].Bid.Size, 
+			tradingPairs[2].Bid.Seq)
+		pricesMessage += fmt.Sprintf("Ask Price=%.6f, Size=%.6f, Seq=%d\n", 
 			tradingPairs[2].Ask.Price, 
 			tradingPairs[2].Ask.Size, 
-			tradingPairs[2].Ask.Seq)
+			tradingPairs[2].Ask.Seq,
+		)
 		message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s, ", profit, profit/orderSize*100, pairsNames, pricesMessage)
 		alerting.SendMessage(message)
 		lastAlertTimes[pairsNamesString] = currentTime
 	}
-
+	/*
 	balances, err := trade.GetWalletBalance("USDT,USDC")
 	if err != nil {
 		logger.Logger.Printf("Ошибка получения баланса: %s\n", err.Error())
@@ -166,5 +177,6 @@ func BuyDecision(tradingPairs TradingPairs, profit float64, pairsNames []string,
 			panic("Выход за критический порог баланса. Остановка работы...")
 		}
 	}
-	return true
+	return true*/
+	return false
 }
