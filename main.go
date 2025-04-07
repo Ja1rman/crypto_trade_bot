@@ -42,36 +42,6 @@ func startConnection() {
 			logger.Logger.Println("Ошибка парсинга JSON:", err)
 			return err
 		}
-		msg := jsonMessage.Data
-		hasBids := len(msg.Bids) > 0
-		hasAsks := len(msg.Asks) > 0
-
-		if !hasBids || !hasAsks {
-			return nil
-		}
-
-		newItem := handlers.OrderBookData{
-			Ask: handlers.StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
-			Bid: handlers.StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
-		}
-
-		
-		bestBid := msg.Bids[0]
-		newItem.Bid = handlers.StockExchangeGlassNote{
-			Price: handlers.ParseFloat(bestBid[0]),
-			Size: handlers.ParseFloat(bestBid[1]),
-			Seq: msg.Seq,
-		}
-		
-		bestAsk := msg.Asks[0]
-		newItem.Ask = handlers.StockExchangeGlassNote{
-			Price: handlers.ParseFloat(bestAsk[0]),
-			Size: handlers.ParseFloat(bestAsk[1]),
-			Seq: msg.Seq,
-		}
-		if newItem.Bid.Price > newItem.Ask.Price {
-			fmt.Println("Received message: ", message)
-		}
 		// для задержек
 		//eventTime := time.UnixMilli(jsonMessage.Cts)
 		//now := time.Now()
@@ -80,7 +50,7 @@ func startConnection() {
 			//go alerting.SendMessage(fmt.Sprintf("Задержка принятия сообщения %d ms", diff))
 			//fmt.Printf("Задержка принятия сообщения %d ms\n", diff)
 		//}
-		//go handlers.UpdateOrdersBook(jsonMessage.Data)
+		go handlers.UpdateOrdersBook(jsonMessage.Data)
 		return nil
 	})
 	_ = ws.Connect()
