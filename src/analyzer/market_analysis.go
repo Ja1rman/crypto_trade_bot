@@ -126,6 +126,7 @@ func BuyDecision(tradingPairs TradingPairs, balances []float64, currencies []str
 	currenciesString := strings.Join(currencies, "/")
 
 	//logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
+	// BID - цена моментальной покупки. всё поменять в trade
 	//trade.ProcessCycle(startSize, tradingPairs[0].Bid.Price, currencies)
 
 	lastAlertTime, exists := lastAlertTimes[currenciesString]
@@ -176,18 +177,18 @@ func ConvertCurrency(
 	newBalance := 0.
 	remainder := 0.
 	if info.BaseCoin == firstCurr {
-		if orderBook.Ask.Size == 0 {
+		if orderBook.Bid.Size == 0 {
 			return 0, balance
 		}
-		balanceWithShift := math.Min(balance, orderBook.Ask.Size)
-		newBalance = balanceWithShift * orderBook.Ask.Price
+		balanceWithShift := math.Min(balance, orderBook.Bid.Size)
+		newBalance = balanceWithShift * orderBook.Bid.Price
 		remainder = balance - balanceWithShift
 	} else {
-		if orderBook.Bid.Price == 0 || orderBook.Bid.Size == 0 {
+		if orderBook.Ask.Price == 0 || orderBook.Ask.Size == 0 {
 			return 0, balance
 		}
-		newBalance = math.Min(balance / orderBook.Bid.Price, orderBook.Bid.Size)
-		oldBalance := newBalance * orderBook.Bid.Price
+		newBalance = math.Min(balance / orderBook.Ask.Price, orderBook.Ask.Size)
+		oldBalance := newBalance * orderBook.Ask.Price
 		remainder = balance - oldBalance
 	}
 	return newBalance, remainder

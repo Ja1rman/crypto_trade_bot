@@ -3,8 +3,6 @@ package handlers
 import (
 	"strconv"
 	"sync"
-	"time"
-	"fmt"
 
 	"crypto_trading/src/logger"
 )
@@ -83,23 +81,10 @@ func UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
 			Ts: ts,
 		}
 	}
-
 	UpdatePriceMap(symbol, newItem, msg.Update)
 }
 
 func UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
-	eventTime := time.UnixMilli(newItem.Ask.Ts)
-	eventTime2 := time.UnixMilli(newItem.Bid.Ts)
-	now := time.Now()
-	diff := now.Sub(eventTime).Milliseconds()
-	diff2 := now.Sub(eventTime2).Milliseconds()
-	if diff2 > diff {
-		diff = diff2
-	}
-	if diff > 200 {
-		fmt.Printf("Задержка принятия сообщения для %s %d ms\n", symbol, diff)
-	}
-
 	PRICES.Lock()
 	defer PRICES.Unlock()
 	if oldItem, exists := PRICES.Cache[symbol]; !exists || update == 1 {
