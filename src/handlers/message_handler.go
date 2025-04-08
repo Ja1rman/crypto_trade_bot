@@ -3,19 +3,20 @@ package handlers
 import (
 	"strconv"
 	"sync"
+	"time"
+	"fmt"
 
 	"crypto_trading/src/logger"
-	"crypto_trading/src/config"
 )
 
 type Prices struct {
 	sync.Mutex
-	Cache map[string]map[string]OrderBookData
+	Cache map[string]OrderBookData
 }
 
 var (
 	PRICES Prices = Prices{
-		Cache: make(map[string]map[string]OrderBookData),
+		Cache: make(map[string]OrderBookData),
 	}
 )
 
@@ -23,6 +24,7 @@ type StockExchangeGlassNote struct {
 	Price float64
 	Size float64
 	Seq int64
+	Ts int64
 }
 
 type OrderBookData struct {
@@ -46,24 +48,20 @@ func ParseFloat(s string) float64 {
 	return value
 }
 
-func UpdateOrdersBook(msg OrderBookJsonData) {
-	key := msg.Symbol
-	value, exists := config.SUBSCRIBE_TICKERS_LIST[key]
-	if !exists {
-		return
-	}
+func UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
+	symbol := msg.Symbol
 
 	hasBids := len(msg.Bids) > 0
 	hasAsks := len(msg.Asks) > 0
 
 	if !hasBids && !hasAsks {
-		logger.Logger.Println("Нет данных в Bids и Asks для обновления.")
+		logger.Logger.Printf("Нет данных в Bids и Asks для обновления. %s\n", symbol)
 		return
 	}
 
 	newItem := OrderBookData{
-		Ask: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
-		Bid: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
+		Ask: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0, Ts: ts},
+		Bid: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0, Ts: ts},
 	}
 
 	if hasBids {
@@ -72,6 +70,7 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 			Price: ParseFloat(bestBid[0]),
 			Size: ParseFloat(bestBid[1]),
 			Seq: msg.Seq,
+			Ts: ts,
 		}
 	}
 
@@ -81,33 +80,30 @@ func UpdateOrdersBook(msg OrderBookJsonData) {
 			Price: ParseFloat(bestAsk[0]),
 			Size: ParseFloat(bestAsk[1]),
 			Seq: msg.Seq,
+			Ts: ts,
 		}
 	}
 
-	updatePriceMap(value.QuoteCoin, value.BaseCoin, newItem)
-	newItem2 := OrderBookData{
-		Ask: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
-		Bid: StockExchangeGlassNote{Price: 0, Size: 0, Seq: 0},
-	}
-	newItem2.Ask.Size = newItem.Bid.Size * newItem.Bid.Price
-	if newItem.Bid.Price > 0 {
-		newItem2.Ask.Price = 1 / newItem.Bid.Price
-	}
-	newItem2.Bid.Size = newItem.Ask.Size * newItem.Ask.Price
-	if newItem.Ask.Price > 0 {
-		newItem2.Bid.Price = 1 / newItem.Ask.Price
-	}
-	updatePriceMap(value.BaseCoin, value.QuoteCoin, newItem2)
+	UpdatePriceMap(symbol, newItem, msg.Update)
 }
 
-func updatePriceMap(first string, second string, newItem OrderBookData) {
-	PRICES.Lock()
-	if _, exists := PRICES.Cache[first]; !exists {
-		PRICES.Cache[first] = make(map[string]OrderBookData)
+func UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
+	eventTime := time.UnixMilli(newItem.Ask.Ts)
+	eventTime2 := time.UnixMilli(newItem.Bid.Ts)
+	now := time.Now()
+	diff := now.Sub(eventTime).Milliseconds()
+	diff2 := now.Sub(eventTime2).Milliseconds()
+	if diff2 > diff {
+		diff = diff2
+	}
+	if diff > 200 {
+		fmt.Printf("Задержка принятия сообщения для %s %d ms\n", symbol, diff)
 	}
 
-	if oldItem, exists := PRICES.Cache[first][second]; !exists {
-		PRICES.Cache[first][second] = newItem
+	PRICES.Lock()
+	defer PRICES.Unlock()
+	if oldItem, exists := PRICES.Cache[symbol]; !exists || update == 1 {
+		PRICES.Cache[symbol] = newItem
 	} else {
 		if oldItem.Bid.Seq < newItem.Bid.Seq {
 			oldItem.Bid = newItem.Bid
@@ -115,32 +111,15 @@ func updatePriceMap(first string, second string, newItem OrderBookData) {
 		if oldItem.Ask.Seq < newItem.Ask.Seq {
 			oldItem.Ask = newItem.Ask
 		}
-		PRICES.Cache[first][second] = oldItem
+		PRICES.Cache[symbol] = oldItem
 	}
-	PRICES.Unlock()
 }
 
-func DeepCopyCache() map[string]map[string]OrderBookData {
+func GetOrderBookData(symbol string) OrderBookData {
 	PRICES.Lock()
 	defer PRICES.Unlock()
-	res := make(map[string]map[string]OrderBookData)
-	for key1, subMap := range PRICES.Cache {
-		newSubMap := make(map[string]OrderBookData)
-		for key2, orderBook := range subMap {
-			newSubMap[key2] = OrderBookData{
-				Ask: StockExchangeGlassNote{
-					Price: orderBook.Ask.Price,
-					Size:  orderBook.Ask.Size,
-					Seq:   orderBook.Ask.Seq,
-				},
-				Bid: StockExchangeGlassNote{
-					Price: orderBook.Bid.Price,
-					Size:  orderBook.Bid.Size,
-					Seq:   orderBook.Bid.Seq,
-				},
-			}
-		}
-		res[key1] = newSubMap
+	if item, exists := PRICES.Cache[symbol]; exists {
+		return item
 	}
-	return res
+	return OrderBookData{}
 }

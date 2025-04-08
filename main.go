@@ -5,14 +5,14 @@ import (
 	"fmt"
 	//"time"
 	//"context"
+
 	bybit "github.com/wuhewuhe/bybit.go.api"
 
-	"crypto_trading/src/logger"
-	"crypto_trading/src/handlers"
-	"crypto_trading/src/config"
-	//"crypto_trading/src/alerting"
 	"crypto_trading/src/analyzer"
-
+	"crypto_trading/src/config"
+	"crypto_trading/src/handlers"
+	"crypto_trading/src/logger"
+	//"crypto_trading/src/alerting"
 	//"crypto_trading/src/trade"
 	//"crypto_trading/src/utils"
 )
@@ -50,7 +50,7 @@ func startConnection() {
 			//go alerting.SendMessage(fmt.Sprintf("Задержка принятия сообщения %d ms", diff))
 			//fmt.Printf("Задержка принятия сообщения %d ms\n", diff)
 		//}
-		go handlers.UpdateOrdersBook(jsonMessage.Data)
+		go handlers.UpdateOrdersBook(jsonMessage.Data, jsonMessage.Ts)
 		return nil
 	})
 	_ = ws.Connect()

@@ -7,7 +7,6 @@ import (
 	"os"
 	
 	"crypto_trading/src/logger"
-	"crypto_trading/src/handlers"
 )
 
 var (
@@ -34,20 +33,4 @@ func SendMessage(message string) {
 		logger.Logger.Printf("Неудачная попытка отправки сообщения, статус: %s", resp.Status)
 		return
 	}
-}
-
-
-func PrintPrices() {
-	handlers.PRICES.Lock()
-	for key := range handlers.PRICES.Cache {
-		logger.Logger.Printf("Key: %s\n", key)
-		for subKey, orderBookData := range handlers.PRICES.Cache[key] {
-			logger.Logger.Printf("  SubKey: %s\n", subKey)
-			logger.Logger.Printf("    Ask: Price=%.10f, Size=%.10f, Seq=%d\n",
-				orderBookData.Ask.Price, orderBookData.Ask.Size, orderBookData.Ask.Seq)
-				logger.Logger.Printf("    Bid: Price=%.10f, Size=%.10f, Seq=%d\n",
-				orderBookData.Bid.Price, orderBookData.Bid.Size, orderBookData.Bid.Seq)
-		}
-	}
-	handlers.PRICES.Unlock()
 }

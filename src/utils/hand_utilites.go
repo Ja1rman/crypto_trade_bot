@@ -7,6 +7,7 @@ import (
 	"os"
 	"encoding/json"
 	"strconv"
+	"strings"
 
     bybit "github.com/wuhewuhe/bybit.go.api"
 
@@ -109,3 +110,66 @@ func GetCurrenciesPrecision() {  // Сделать обратную точнос
 	// Запись в файл
 	writeToFile(precisionMap, "results.json")
 }
+
+func GenerateRoutes() {
+	// Генерируем карту валютных пар
+	currencyPairs := GenerateCurrencyPairs()
+
+	// Создаем содержимое файла
+	content := `var CURRENCY_PAIRS = map[string][]string{`
+
+	// Добавляем пары в содержимое файла
+	for currency, pairs := range currencyPairs {
+		content += fmt.Sprintf("\t\"%s\": {%s},\n", currency, formatPairs(pairs))
+	}
+
+	content += "}\n"
+
+	// Записываем в файл
+	err := os.WriteFile("currency_pairs.go", []byte(content), 0644)
+	if err != nil {
+		fmt.Printf("Ошибка записи файла: %v\n", err)
+		return
+	}
+
+	fmt.Println("Файл currency_pairs.go успешно создан")
+}
+
+func formatPairs(pairs []string) string {
+	quoted := make([]string, len(pairs))
+	for i, pair := range pairs {
+		quoted[i] = fmt.Sprintf("\"%s\"", pair)
+	}
+	return strings.Join(quoted, ", ")
+}
+
+func GenerateCurrencyPairs() map[string][]string {
+	result := make(map[string][]string)
+    
+	for _, info := range config.SUBSCRIBE_TICKERS_LIST {
+		if _, exists := result[info.BaseCoin]; !exists {
+			result[info.BaseCoin] = []string{}
+		}
+		result[info.BaseCoin] = append(result[info.BaseCoin], info.QuoteCoin)
+        
+		if _, exists := result[info.QuoteCoin]; !exists {
+			result[info.QuoteCoin] = []string{}
+		}
+		result[info.QuoteCoin] = append(result[info.QuoteCoin], info.BaseCoin)
+	}
+    
+	for currency, pairs := range result {
+		uniquePairs := make(map[string]bool)
+		for _, pair := range pairs {
+			uniquePairs[pair] = true
+		}
+        
+		result[currency] = make([]string, 0, len(uniquePairs))
+		for pair := range uniquePairs {
+			result[currency] = append(result[currency], pair)
+		}
+	}
+    
+	return result
+}
+

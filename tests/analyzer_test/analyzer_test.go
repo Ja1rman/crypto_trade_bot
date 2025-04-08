@@ -9,6 +9,25 @@ import (
 	"crypto_trading/src/handlers"
 )
 
+для тестов ProcessAnalyze
+currencies := []string{"USDT", "MANA", "BTC"}
+a := handlers.OrderBookData{
+	Ask: handlers.StockExchangeGlassNote{Price: 0.2157, Size: 13900.14, Seq: 2},
+	Bid: handlers.StockExchangeGlassNote{Price: 0.2158, Size: 108.06, Seq: 2},
+}
+b := handlers.OrderBookData{
+	Ask: handlers.StockExchangeGlassNote{Price: 0.00000290, Size: 1280.1, Seq: 2},
+	Bid: handlers.StockExchangeGlassNote{Price: 0.00000295, Size: 1280.1, Seq: 2},
+}
+c := handlers.OrderBookData{
+	Ask: handlers.StockExchangeGlassNote{Price: 79680.3, Size: 5.1, Seq: 2},
+	Bid: handlers.StockExchangeGlassNote{Price: 79690.4, Size: 4.9, Seq: 2},
+}
+handlers.UpdatePriceMap("MANAUSDT", a)
+handlers.UpdatePriceMap("MANABTC", b)
+handlers.UpdatePriceMap("BTCUSDT", c)
+analyzer.ProcessAnalyze(currencies)
+
 
 var _ = Describe("Trading Calculations", func() {
 	var balance = 1000.0
