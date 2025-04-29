@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"encoding/json"
 
-	bybit "github.com/wuhewuhe/bybit.go.api"
+	bybit "github.com/bybit-exchange/bybit.go.api"
 
 	"crypto_trading/src/config"
 	"crypto_trading/src/logger"
@@ -24,7 +24,6 @@ func ProcessCycle(startSize float64, firstOrderPrice float64, pairsNames []strin
 		logger.Logger.Printf("Не получилось совершить сделку, error: %s\n", err)
 		return
 	}
-	pairsNames = append(pairsNames, pairsNames[0])
 	err = SellAll(pairsNames, qty)
 	if err != nil {
 		logger.Logger.Println(err)

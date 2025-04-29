@@ -8,7 +8,7 @@ import (
 )
 
 type Prices struct {
-	sync.Mutex
+	sync.RWMutex
 	Cache map[string]OrderBookData
 }
 
@@ -53,7 +53,6 @@ func UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
 	hasAsks := len(msg.Asks) > 0
 
 	if !hasBids && !hasAsks {
-		logger.Logger.Printf("Нет данных в Bids и Asks для обновления. %s\n", symbol)
 		return
 	}
 
@@ -101,8 +100,8 @@ func UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
 }
 
 func GetOrderBookData(symbol string) OrderBookData {
-	PRICES.Lock()
-	defer PRICES.Unlock()
+	PRICES.RLock()
+	defer PRICES.RUnlock()
 	if item, exists := PRICES.Cache[symbol]; exists {
 		return item
 	}

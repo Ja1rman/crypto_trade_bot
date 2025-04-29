@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 	"slices"
+	"sync"
 
 	"crypto_trading/src/alerting"
 	"crypto_trading/src/config"
@@ -17,30 +18,35 @@ import (
 )
 
 type MoneyLimits struct {
-	StopPrice float64
+	StopBalance float64
 	MaxDealPrice float64
 }
 type TradingPairs []handlers.OrderBookData
 
-var(
-	MIN_PROFIT float64 = 0.008 + 0.0058 // около 0.58% это комса
-	MIN_MONEY_DEAL float64 = 0.3
-	START_CURRENCIES = map[string]MoneyLimits{
-		"USDT": {800, 800.},
-		"USDC": {800, 800},
-		//"BTC": {0.01, 0.01},
-		//"ETH": {0.5, 0.5},
-	}
-	lastAlertTimes = make(map[string]time.Time)
-)
+type StartCurrencies struct {
+	sync.RWMutex
+	Cache map[string]MoneyLimits
+}
+
+type CurrencySettings struct {
+	MIN_PROFIT float64
+	MIN_MONEY_DEAL float64
+	CURRENCY_ROUTES map[string]map[string]struct{}
+	SUBSCRIBE_TICKERS_LIST map[string]config.Info
+	START_CURRENCIES StartCurrencies
+	LAST_ALERT_SENT map[string]time.Time
+	ALL_PATHS [][]string
+	COMMISSION float64
+}
 
 
-func LaunchInfiniteAnalyze() {
+func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
+	currSet.searchTradingPaths()
 	lastNotifier := time.Now().Add(3*time.Minute - time.Hour)
 
 	for {
 		start := time.Now().UnixNano()
-		tryDifferentStartCurrencies()
+		currSet.analyzeForAllPaths()
 		//elapsed := time.Now().UnixNano() - start
 		//fmt.Println(fmt.Sprintf("Время выполнения анализа: %d", elapsed))
 		now := time.Now()
@@ -52,35 +58,86 @@ func LaunchInfiniteAnalyze() {
 	}
 }
 
-func tryDifferentStartCurrencies() {
-	for currency := range START_CURRENCIES {
-		tradingPathsSearching([]string{currency}, 1, 3, 3)
+func (currSet *CurrencySettings) searchTradingPaths() {
+	currSet.START_CURRENCIES.RLock()
+	defer currSet.START_CURRENCIES.RUnlock()
+	for currency := range currSet.START_CURRENCIES.Cache {
+        currSet.tradingPathsSearching([]string{currency}, 1, 3, 5)
 	}
 }
 
-func tradingPathsSearching(currencies []string, currentDepth int, minDepth int, maxDepth int) {
+func (currSet *CurrencySettings) tradingPathsSearching(currencies []string, currentDepth int, minDepth int, maxDepth int) {
 	currentDepth += 1
 	if currentDepth > maxDepth {
 		return
 	}
-	for _, currentCurrency := range config.CURRENCY_ROUTES[currencies[len(currencies)-1]] {
-		if _, exists := config.CURRENCY_ROUTES[currentCurrency]; !exists || slices.Contains(currencies, currentCurrency) {
+	for currentCurrency := range currSet.CURRENCY_ROUTES[currencies[len(currencies)-1]] {
+		if _, exists := currSet.CURRENCY_ROUTES[currentCurrency];
+		   !exists ||
+		   slices.Contains(currencies, currentCurrency) ||
+		   currentCurrency == "USDT" ||
+		   currentCurrency == "USDC" {
 			continue
 		}
-		currencies = append(currencies, currentCurrency)
-		if minDepth <= currentDepth && slices.Contains(config.CURRENCY_ROUTES[currentCurrency], currencies[0]) { 
-			ProcessAnalyze(currencies) // можно распараллелить TODO
+		newCurrencies := make([]string, len(currencies)+1)
+        copy(newCurrencies, currencies)
+        newCurrencies[len(currencies)] = currentCurrency
+		if minDepth <= currentDepth {
+			if _, exists := currSet.CURRENCY_ROUTES[currentCurrency][newCurrencies[0]]; exists {
+				path := make([]string, len(newCurrencies)+1)
+                copy(path, newCurrencies)
+                path[len(newCurrencies)] = newCurrencies[0]
+				currSet.ALL_PATHS = append(currSet.ALL_PATHS, path)
+			}
+			if _, exists := currSet.CURRENCY_ROUTES[currentCurrency]["USDT"]; exists && newCurrencies[0] == "USDC" {
+				path := make([]string, len(newCurrencies)+1)
+                copy(path, newCurrencies)
+                path[len(newCurrencies)] = "USDT"
+				currSet.ALL_PATHS = append(currSet.ALL_PATHS, path)
+			}
+			if _, exists := currSet.CURRENCY_ROUTES[currentCurrency]["USDC"]; exists && newCurrencies[0] == "USDT" {
+				path := make([]string, len(newCurrencies)+1)
+                copy(path, newCurrencies)
+                path[len(newCurrencies)] = "USDC"
+				currSet.ALL_PATHS = append(currSet.ALL_PATHS, path)
+			}
 		}
-		tradingPathsSearching(currencies, currentDepth, minDepth, maxDepth)
-		currencies = currencies[:len(currencies)-1]
+		currSet.tradingPathsSearching(newCurrencies, currentDepth, minDepth, maxDepth)
 	}
 }
 
-func ProcessAnalyze(currencies []string) {
-	balances := make([]float64, len(currencies)+1)
-	balances[0] = START_CURRENCIES[currencies[0]].MaxDealPrice
-	currencies = append(currencies, currencies[0])
-	logPairs := TradingPairs{}
+func (currSet *CurrencySettings) analyzeForAllPaths() {
+	n := 2
+
+	var wg sync.WaitGroup
+	chunkSize := (len(currSet.ALL_PATHS) + n - 1) / n
+
+	for i := 0; i < n; i++ {
+		start := i * chunkSize
+		end := start + chunkSize
+		if end > len(currSet.ALL_PATHS) {
+			end = len(currSet.ALL_PATHS)
+		}
+		chunk := currSet.ALL_PATHS[start:end]
+
+		wg.Add(1)
+		go func(currenciesChunk [][]string) {
+			defer wg.Done()
+			for _, currencies := range currenciesChunk {
+				currSet.processAnalyze(currencies)
+			}
+		}(chunk)
+	}
+
+	wg.Wait()
+}
+
+func (currSet *CurrencySettings) processAnalyze(currencies []string) {
+	balances := make([]float64, len(currencies))
+	currSet.START_CURRENCIES.RLock()
+	balances[0] = currSet.START_CURRENCIES.Cache[currencies[0]].MaxDealPrice
+	currSet.START_CURRENCIES.RUnlock()
+	tradingPairs := TradingPairs{}
 	for i, firstCurr := range currencies {
 		if i == len(currencies)-1 {
 			break
@@ -94,7 +151,7 @@ func ProcessAnalyze(currencies []string) {
 			return
 		}
 		orderBook := handlers.GetOrderBookData(symbol)
-		logPairs = append(logPairs, orderBook)
+		tradingPairs = append(tradingPairs, orderBook)
 		remainder := 0.
 		balances[i+1], remainder = ConvertCurrency(balances[i], firstCurr, secondCurr, info, orderBook)
 		if balances[i+1] <= 0 {
@@ -112,24 +169,31 @@ func ProcessAnalyze(currencies []string) {
 			}
 		}
 	}
-	BuyDecision(logPairs, balances, currencies)
+	currSet.buyDecision(tradingPairs, balances, currencies)
 }
 
-func BuyDecision(tradingPairs TradingPairs, balances []float64, currencies []string) {
+func (currSet *CurrencySettings) buyDecision(tradingPairs TradingPairs, balances []float64, currencies []string) {
 	profit := balances[len(balances)-1] - balances[0]
-	if (profit/balances[0] < MIN_PROFIT ||
-		balances[0] < MIN_MONEY_DEAL*START_CURRENCIES[currencies[0]].MaxDealPrice) {
+	currSet.START_CURRENCIES.RLock()
+	limits := currSet.START_CURRENCIES.Cache[currencies[0]]
+	maxDealPrice := limits.MaxDealPrice
+	currSet.START_CURRENCIES.RUnlock()
+	coms := balances[0] * currSet.COMMISSION * float64(len(currencies)-1) 
+	if (profit/balances[0] - coms < currSet.MIN_PROFIT ||
+		balances[0] < currSet.MIN_MONEY_DEAL*maxDealPrice) {
 		return
 	}
 
 	currentTime := time.Now()
 	currenciesString := strings.Join(currencies, "/")
 
-	//logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
-	// BID - цена моментальной покупки. всё поменять в trade
-	//trade.ProcessCycle(startSize, tradingPairs[0].Bid.Price, currencies)
+	if config.TRADE && limits.StopBalance <= limits.MaxDealPrice {
+		logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
+		trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies)
+		currSet.checkBalance()
+	}
 
-	lastAlertTime, exists := lastAlertTimes[currenciesString]
+	lastAlertTime, exists := currSet.LAST_ALERT_SENT[currenciesString]
 	if !exists || exists && currentTime.Sub(lastAlertTime).Minutes() >= 1 {
 		pricesMessage := "Цены:\n"
 		for i := 0; i < len(tradingPairs); i++ {
@@ -149,22 +213,43 @@ func BuyDecision(tradingPairs TradingPairs, balances []float64, currencies []str
 		}
 		message := fmt.Sprintf("Нашлись сделки с профитом *%.2f*$ от баланса (%.2f%%).\n%s\n%s\nbalances: %v", profit, profit/balances[0]*100, currencies, pricesMessage, balances)
 		alerting.SendMessage(message)
-		lastAlertTimes[currenciesString] = currentTime
+		currSet.LAST_ALERT_SENT[currenciesString] = currentTime
 	}
-	/*
-	balances, err := trade.GetWalletBalance("USDT,USDC")
+}
+
+
+func (currSet *CurrencySettings) checkBalance() {
+	currSet.START_CURRENCIES.Lock()
+	defer currSet.START_CURRENCIES.Unlock()
+
+	var keys []string
+	for k := range currSet.START_CURRENCIES.Cache {
+		keys = append(keys, k)
+	}
+	currencies := strings.Join(keys, ",")
+	balances, err := trade.GetWalletBalance(currencies)
 	if err != nil {
 		logger.Logger.Printf("Ошибка получения баланса: %s\n", err.Error())
 		alerting.SendMessage("Ошибка получения баланса")
 		return
 	}
 	alerting.SendMessage(fmt.Sprintf("Баланс: %v\n", balances))
-	for currency, limit := range START_CURRENCIES {
-		if balances[currency] < limit.StopPrice {
+	usdBal := balances["USDT"] + balances["USDC"]
+	for currency, limits := range currSet.START_CURRENCIES.Cache {
+		bal := balances[currency]
+		newLimits := MoneyLimits{
+			StopBalance: limits.StopBalance,
+			MaxDealPrice: bal * 0.995,
+		}
+		currSet.START_CURRENCIES.Cache[currency] = newLimits
+		if currency == "USDT" || currency == "USDC" {
+			bal = usdBal
+		}
+		if bal < limits.StopBalance {
 			alerting.SendMessage("Не хватает денег!!!")
 			panic("Выход за критический порог баланса. Остановка работы...")
 		}
-	}*/
+	}
 }
 
 func ConvertCurrency(
