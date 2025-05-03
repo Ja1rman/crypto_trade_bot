@@ -1,56 +1,70 @@
 package ws_connections
 
 import (
-	"encoding/json"
-	"fmt"
 	"crypto_trading/src/logger"
+	"fmt"
 	"time"
+
+	"crypto_trading/websocket-proto/mexc/protobuf"
 
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
-	"crypto_trading/websocket-proto/mexc/protobuf"
 
 	"crypto_trading/src/handlers"
 )
 
-
-func StartMexcConnection(tickers []string) {
-	url := "wss://wbs-api.mexc.com/ws"
-	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
-	if err != nil {
-		logger.Logger.Fatal("Ошибка соединения с WebSocket:", err)
-	}
-	defer conn.Close()
-
-	logger.Logger.Println("WebSocket подключён")
-
-	const batchSize = 30
+func StartMexcConnection(tickers []string, prices *handlers.Prices) {
+	const batchSize = 10
 	for i := 0; i < len(tickers); i += batchSize {
 		end := i + batchSize
 		if end > len(tickers) {
 			end = len(tickers)
 		}
-		params := make([]string, 0)
-		for _, ticker := range tickers[i:end] {
-			params = append(params, fmt.Sprintf("spot@public.bookTicker.batch.v3.api.pb@%s", ticker))
-		}
-
-		sub := map[string]interface{}{
-			"method": "SUBSCRIPTION",
-			"params": params,
-		}
-
-		if err := conn.WriteJSON(sub); err != nil {
-			logger.Logger.Println("Ошибка подписки:", err)
-			continue
-		}
+		batch := tickers[i:end]
+		go connectToMexc(batch, prices)
 	}
+	select {}
+}
 
-	go func() {
-		for {
+func connectToMexc(tickers []string, prices *handlers.Prices) {
+	url := "wss://wbs-api.mexc.com/ws"
+	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
+	if err != nil {
+		logger.Logger.Fatal("Ошибка соединения с WebSocket:", err)
+		return
+	}
+	defer conn.Close()
+
+	params := make([]string, 0)
+	for _, ticker := range tickers {
+		params = append(params, fmt.Sprintf("spot@public.bookTicker.batch.v3.api.pb@%s", ticker))
+	}
+	sub := map[string]interface{}{
+		"method": "SUBSCRIPTION",
+		"params": params,
+	}
+	if err := conn.WriteJSON(sub); err != nil {
+		logger.Logger.Println("Ошибка подписки:", err)
+		return
+	}
+	pingTicker := time.NewTicker(30 * time.Second)
+	defer pingTicker.Stop()
+
+	for {
+		select {
+		case <-pingTicker.C:
+			ping := map[string]interface{}{
+				"method": "PING",
+			}
+			if err := conn.WriteJSON(ping); err != nil {
+				logger.Logger.Println("Ошибка при отправке PING:", err)
+				return
+			}
+		default:
 			msgType, message, err := conn.ReadMessage()
 			if err != nil {
 				logger.Logger.Println("Ошибка при чтении WebSocket:", err)
+				return
 			}
 			if msgType != websocket.BinaryMessage {
 				continue
@@ -59,39 +73,21 @@ func StartMexcConnection(tickers []string) {
 			err = proto.Unmarshal(message, &msg)
 			if err != nil {
 				logger.Logger.Println("Ошибка при разборе protobuf:", err)
+				continue
 			}
-			var data handlers.OrderBookJsonData
-			data.Symbol = msg.GetSymbol()
-			data.Seq = msg.GetSendTime()
-			data.Update = data.Seq
 			publicBookTickerArr := msg.GetPublicBookTickerBatch().GetItems()
 			if len(publicBookTickerArr) == 0 {
 				continue
 			}
 			publicBookTicker := publicBookTickerArr[0]
-			data.Bids = [][]string{{publicBookTicker.GetBidprice(), publicBookTicker.GetBidquantity()}}
-			data.Asks = [][]string{{publicBookTicker.GetAskprice(), publicBookTicker.GetAskquantity()}}
-			go handlers.UpdateOrdersBook(data, data.Seq)
-		}
-	}()
-	go func() {
-		pinhTicker := time.NewTicker(30 * time.Second)
-		defer pinhTicker.Stop()
-	
-		for range pinhTicker.C {
-			ping := map[string]string{
-				"method": "PING",
+			data := handlers.OrderBookJsonData{
+				Symbol: msg.GetSymbol(),
+				Seq:    msg.GetSendTime(),
+				Update: msg.GetSendTime(),
+				Bids:   [][]string{{publicBookTicker.GetBidprice(), publicBookTicker.GetBidquantity()}},
+				Asks:   [][]string{{publicBookTicker.GetAskprice(), publicBookTicker.GetAskquantity()}},
 			}
-			pingData, _ := json.Marshal(ping)
-	
-			err := conn.WriteMessage(websocket.TextMessage, pingData)
-			if err != nil {
-				logger.Logger.Println("Ошибка при отправке PING:", err)
-				return
-			}
-			logger.Logger.Println("PING отправлен")
+			prices.UpdateOrdersBook(data, data.Seq)
 		}
-	}()
-	
-	select {}
+	}
 }

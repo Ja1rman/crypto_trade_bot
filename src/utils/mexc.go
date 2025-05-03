@@ -6,8 +6,9 @@ import (
 	"net/http"
 
 	"crypto_trading/src/analyzer"
-	"crypto_trading/src/logger"
 	"crypto_trading/src/config"
+	"crypto_trading/src/handlers"
+	"crypto_trading/src/logger"
 )
 
 type ExchangeInfo struct {
@@ -46,11 +47,12 @@ func SetMexcSettings() *analyzer.CurrencySettings {
 	allSymbols := getAllMexcSymbols()
 	allSymbols = filterNonActiveMexcSymbols(allSymbols)
 	tickersList := formatMexcSymbols(allSymbols)
+	routes, infoMap := GenerateRoutesAndInfoMap(tickersList)
 	result := &analyzer.CurrencySettings{
-		MIN_PROFIT: 0.002,
+		MIN_PROFIT: 0.0001,
 		MIN_MONEY_DEAL: 0.3,
-		CURRENCY_ROUTES: GenerateCurrencyRoutes(tickersList),
-		SUBSCRIBE_TICKERS_LIST: tickersList,
+		CURRENCY_ROUTES: routes,
+		SUBSCRIBE_TICKERS_LIST: infoMap,
 		START_CURRENCIES: analyzer.StartCurrencies{
 			Cache: map[string]analyzer.MoneyLimits{
 			"USDT": {StopBalance: 800, MaxDealPrice: 800},
@@ -60,6 +62,9 @@ func SetMexcSettings() *analyzer.CurrencySettings {
 			//"EUR": {800, 800},
 		}},
 		COMMISSION: 0.0005, // комса https://www.bybit.com/ru-RU/announcement-info/
+		PRICES: handlers.Prices{
+			Cache: make(map[string]handlers.OrderBookData),
+		},
 	}
 	return result
 }

@@ -3,7 +3,7 @@ package trade
 import (
 	"context"
 	"fmt"
-	"math"
+	//"math"
 	"strconv"
 	"encoding/json"
 
@@ -17,7 +17,7 @@ var (
 	client = bybit.NewBybitHttpClient(config.API_KEY, config.API_KEY_SECRET, bybit.WithBaseURL(config.NET))
 )
 
-
+/*
 func ProcessCycle(startSize float64, firstOrderPrice float64, pairsNames []string) {
 	qty, err := ProcessFirstPair(startSize, firstOrderPrice, pairsNames)
 	if err!= nil || qty <= 0.0 {
@@ -84,18 +84,6 @@ func ProcessFirstPair(size float64, price float64, pairsNames []string) (float64
 		return 0.0, err
 	}
 	return createFirstOrder(info, size, price, symbol, pairsNames[1])
-}
-
-func FindSymbol(firstCurrency string, secondCurrency string) (string, config.Info, error) {
-	symbol := firstCurrency + secondCurrency
-	if info, exists := config.SUBSCRIBE_TICKERS_LIST[symbol]; exists {
-		return symbol, info, nil
-	}
-	symbol = secondCurrency + firstCurrency
-	if info, exists := config.SUBSCRIBE_TICKERS_LIST[symbol]; exists {
-		return symbol, info, nil
-	}
-	return "", config.Info{}, fmt.Errorf("pairs %s not found in config", symbol)
 }
 
 func createFirstOrder(info config.Info, size float64, price float64, symbol string, coin string) (float64, error) {
@@ -244,7 +232,7 @@ func SaveBookInfo(symbol string) {
 	}
 	logger.Logger.Println(response)
 }
-
+*/
 func GetWalletBalance(coin string) (map[string]float64, error) {
 	params := map[string]interface{}{"accountType": "UNIFIED", "coin": coin}
 	accountResult, err := client.NewUtaBybitServiceWithParams(params).GetAccountWallet(context.Background())

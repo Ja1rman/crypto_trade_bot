@@ -26,5 +26,4 @@ type Precision struct {
 var (
 	NET = bybit.MAINNET
 	TRADE bool = false
-	SUBSCRIBE_TICKERS_LIST = map[string]Info{}
 )

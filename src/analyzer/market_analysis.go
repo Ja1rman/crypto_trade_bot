@@ -37,8 +37,8 @@ type CurrencySettings struct {
 	LAST_ALERT_SENT map[string]time.Time
 	ALL_PATHS [][]string
 	COMMISSION float64
+	PRICES handlers.Prices
 }
-
 
 func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
 	currSet.searchTradingPaths()
@@ -52,7 +52,7 @@ func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
 		now := time.Now()
 		if now.Sub(lastNotifier) > time.Hour {
 			elapsed := now.UnixNano() - start
-			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d, Горутин в работе: %d", elapsed, runtime.NumGoroutine()))
+			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d, Горутин в работе: %d, Количество данных: %d", elapsed, runtime.NumGoroutine(), currSet.PRICES.GetLenOfPrices()))
 			lastNotifier = now
 		}
 	}
@@ -143,14 +143,14 @@ func (currSet *CurrencySettings) processAnalyze(currencies []string) {
 			break
 		}
 		secondCurr := currencies[i+1]
-		symbol, info, err := trade.FindSymbol(firstCurr, secondCurr)
+		symbol, info, err := currSet.FindSymbol(firstCurr, secondCurr)
 		if err != nil {
 			if firstCurr != secondCurr {
 				logger.Logger.Println(err, currencies)
 			}
 			return
 		}
-		orderBook := handlers.GetOrderBookData(symbol)
+		orderBook := currSet.PRICES.GetOrderBookData(symbol)
 		tradingPairs = append(tradingPairs, orderBook)
 		remainder := 0.
 		balances[i+1], remainder = ConvertCurrency(balances[i], firstCurr, secondCurr, info, orderBook)
@@ -189,7 +189,7 @@ func (currSet *CurrencySettings) buyDecision(tradingPairs TradingPairs, balances
 
 	if config.TRADE && limits.StopBalance <= limits.MaxDealPrice {
 		logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
-		trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies)
+		//trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies)
 		currSet.checkBalance()
 	}
 
@@ -250,6 +250,18 @@ func (currSet *CurrencySettings) checkBalance() {
 			panic("Выход за критический порог баланса. Остановка работы...")
 		}
 	}
+}
+
+func (currSet *CurrencySettings) FindSymbol(firstCurrency string, secondCurrency string) (string, config.Info, error) {
+	symbol := firstCurrency + secondCurrency
+	if info, exists := currSet.SUBSCRIBE_TICKERS_LIST[symbol]; exists {
+		return symbol, info, nil
+	}
+	symbol = secondCurrency + firstCurrency
+	if info, exists := currSet.SUBSCRIBE_TICKERS_LIST[symbol]; exists {
+		return symbol, info, nil
+	}
+	return "", config.Info{}, fmt.Errorf("pairs %s not found in config", symbol)
 }
 
 func ConvertCurrency(

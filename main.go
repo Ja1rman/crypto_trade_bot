@@ -1,13 +1,12 @@
 package main
 
 import (
+	"time"
+
+	"crypto_trading/src/config"
+	"crypto_trading/src/logger"
 	"crypto_trading/src/utils"
 	"crypto_trading/src/ws_connections"
-	"crypto_trading/src/logger"
-	"crypto_trading/src/config"
-
-	//"crypto_trading/src/trade"
-	//"crypto_trading/src/utils"
 )
 
 func generateTickersList(tickers map[string]config.Info) []string {
@@ -25,9 +24,9 @@ func main() {
 
 	tickers := generateTickersList(mexcCurrencySettings.SUBSCRIBE_TICKERS_LIST)
 
-	go ws_connections.StartMexcConnection(tickers)
-	//go ws_connections.StartByBitConnection()
-
+	go ws_connections.StartMexcConnection(tickers, &mexcCurrencySettings.PRICES)
+	//go ws_connections.StartByBitConnection(tickers, &mexcCurrencySettings.PRICES)
+	time.Sleep(40 * time.Second)
 	go mexcCurrencySettings.LaunchInfiniteAnalyze()
 	//go bybitCurrencySettings.LaunchInfiniteAnalyze()
 	select {}

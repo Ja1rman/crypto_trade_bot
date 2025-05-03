@@ -4,7 +4,7 @@ import (
 	"crypto_trading/src/config"
 )
 
-func GenerateCurrencyRoutes(infoMap map[string]config.Info) map[string]map[string]struct{} {
+func GenerateRoutesAndInfoMap(infoMap map[string]config.Info) (map[string]map[string]struct{}, map[string]config.Info) {
 	routes := make(map[string]map[string]struct{})
 
 	for _, info := range infoMap {
@@ -19,8 +19,9 @@ func GenerateCurrencyRoutes(infoMap map[string]config.Info) map[string]map[strin
 		}
 		routes[quote][base] = struct{}{}
 	}
-
-	return filterRoutes(routes)
+	routes = filterRoutes(routes)
+	infoMap = filterInfoMapByRoutes(infoMap, routes)
+	return routes, infoMap
 }
 
 func filterRoutes(routes map[string]map[string]struct{}) map[string]map[string]struct{} {
@@ -42,5 +43,19 @@ func filterRoutes(routes map[string]map[string]struct{}) map[string]map[string]s
 		filtered[base] = filteredQuotes
 	}
 
+	return filtered
+}
+
+func filterInfoMapByRoutes(infoMap map[string]config.Info, routes map[string]map[string]struct{}) map[string]config.Info {
+	filtered := make(map[string]config.Info)
+	for symbol, info := range infoMap {
+		if _, exists := routes[info.BaseCoin]; !exists {
+			continue
+		}
+		if _, exists := routes[info.QuoteCoin]; !exists {
+			continue
+		}
+		filtered[symbol] = info
+	}
 	return filtered
 }

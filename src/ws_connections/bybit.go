@@ -18,7 +18,7 @@ type OrderBookJsonMessage struct {
 	Cts   int64             `json:"cts"`
 }
 
-func StartByBitConnection(tickers []string) {
+func StartByBitConnection(tickers []string, prices *handlers.Prices) {
 	ws := bybit.NewBybitPublicWebSocket("wss://stream.bybit.com/v5/public/spot", func(message string) error {
 		//fmt.Println("Received message: ", message)
 		var jsonMessage OrderBookJsonMessage
@@ -34,7 +34,7 @@ func StartByBitConnection(tickers []string) {
 			//go alerting.SendMessage(fmt.Sprintf("Задержка принятия сообщения %d ms", diff))
 			//fmt.Printf("Задержка принятия сообщения %d ms\n", diff)
 		//}
-		go handlers.UpdateOrdersBook(jsonMessage.Data, jsonMessage.Ts)
+		go prices.UpdateOrdersBook(jsonMessage.Data, jsonMessage.Ts)
 		return nil
 	})
 	_ = ws.Connect()

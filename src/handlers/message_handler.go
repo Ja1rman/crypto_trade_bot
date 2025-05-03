@@ -12,12 +12,6 @@ type Prices struct {
 	Cache map[string]OrderBookData
 }
 
-var (
-	PRICES Prices = Prices{
-		Cache: make(map[string]OrderBookData),
-	}
-)
-
 type StockExchangeGlassNote struct {
 	Price float64
 	Size float64
@@ -46,7 +40,7 @@ func ParseFloat(s string) float64 {
 	return value
 }
 
-func UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
+func (prices *Prices) UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
 	symbol := msg.Symbol
 
 	hasBids := len(msg.Bids) > 0
@@ -80,14 +74,14 @@ func UpdateOrdersBook(msg OrderBookJsonData, ts int64) {
 			Ts: ts,
 		}
 	}
-	UpdatePriceMap(symbol, newItem, msg.Update)
+	prices.UpdatePriceMap(symbol, newItem, msg.Update)
 }
 
-func UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
-	PRICES.Lock()
-	defer PRICES.Unlock()
-	if oldItem, exists := PRICES.Cache[symbol]; !exists || update == 1 {
-		PRICES.Cache[symbol] = newItem
+func (prices *Prices) UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
+	prices.Lock()
+	defer prices.Unlock()
+	if oldItem, exists := prices.Cache[symbol]; !exists || update == 1 {
+		prices.Cache[symbol] = newItem
 	} else {
 		if oldItem.Bid.Seq < newItem.Bid.Seq {
 			oldItem.Bid = newItem.Bid
@@ -95,15 +89,21 @@ func UpdatePriceMap(symbol string, newItem OrderBookData, update int64) {
 		if oldItem.Ask.Seq < newItem.Ask.Seq {
 			oldItem.Ask = newItem.Ask
 		}
-		PRICES.Cache[symbol] = oldItem
+		prices.Cache[symbol] = oldItem
 	}
 }
 
-func GetOrderBookData(symbol string) OrderBookData {
-	PRICES.RLock()
-	defer PRICES.RUnlock()
-	if item, exists := PRICES.Cache[symbol]; exists {
+func (prices *Prices) GetOrderBookData(symbol string) OrderBookData {
+	prices.RLock()
+	defer prices.RUnlock()
+	if item, exists := prices.Cache[symbol]; exists {
 		return item
 	}
 	return OrderBookData{}
+}
+
+func (prices *Prices) GetLenOfPrices() int {
+	prices.RLock()
+	defer prices.RUnlock()
+	return len(prices.Cache)
 }
