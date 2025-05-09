@@ -65,6 +65,7 @@ func SetMexcSettings() *analyzer.CurrencySettings {
 		PRICES: handlers.Prices{
 			Cache: make(map[string]handlers.OrderBookData),
 		},
+		MARKET: "mexc",
 	}
 	return result
 }

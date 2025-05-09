@@ -64,6 +64,7 @@ func SetBybitSettings() *analyzer.CurrencySettings {
 		PRICES: handlers.Prices{
 			Cache: make(map[string]handlers.OrderBookData),
 		},
+		MARKET: "bybit",
 	}
 	return result
 }

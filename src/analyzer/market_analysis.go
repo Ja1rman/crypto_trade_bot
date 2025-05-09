@@ -38,6 +38,7 @@ type CurrencySettings struct {
 	ALL_PATHS [][]string
 	COMMISSION float64
 	PRICES handlers.Prices
+	MARKET string
 }
 
 func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
@@ -189,7 +190,7 @@ func (currSet *CurrencySettings) buyDecision(tradingPairs TradingPairs, balances
 
 	if config.TRADE && limits.StopBalance <= limits.MaxDealPrice {
 		logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
-		//trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies)
+		//trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies, currSet.SUBSCRIBE_TICKERS_LIST)
 		currSet.checkBalance()
 	}
 
@@ -217,7 +218,6 @@ func (currSet *CurrencySettings) buyDecision(tradingPairs TradingPairs, balances
 	}
 }
 
-
 func (currSet *CurrencySettings) checkBalance() {
 	currSet.START_CURRENCIES.Lock()
 	defer currSet.START_CURRENCIES.Unlock()
@@ -227,7 +227,7 @@ func (currSet *CurrencySettings) checkBalance() {
 		keys = append(keys, k)
 	}
 	currencies := strings.Join(keys, ",")
-	balances, err := trade.GetWalletBalance(currencies)
+	balances, err := currSet.GetWalletBalance(currencies)
 	if err != nil {
 		logger.Logger.Printf("Ошибка получения баланса: %s\n", err.Error())
 		alerting.SendMessage("Ошибка получения баланса")
@@ -252,6 +252,117 @@ func (currSet *CurrencySettings) checkBalance() {
 	}
 }
 
+func (currSet *CurrencySettings) ProcessCycle(startSize float64, firstOrderPrice float64, pairsNames []string, exchange string) {
+	qty, err := currSet.ProcessFirstPair(startSize, firstOrderPrice, pairsNames)
+	if err!= nil || qty <= 0.0 {
+		logger.Logger.Printf("Не получилось совершить сделку, error: %s\n", err)
+		return
+	}
+	err = currSet.SellAll(pairsNames, qty)
+	if err != nil {
+		logger.Logger.Println(err)
+	}
+}
+
+func (currSet *CurrencySettings) SellAll(pairsNames []string, qty float64) error {
+	errMsg := fmt.Sprintf("Не удалось продать все валюты, pairsNames: %v", pairsNames)
+	for i, pairName := range pairsNames {
+		if i == 0 || i == len(pairsNames)-1 {
+			continue
+		}
+		symbol, info, err := currSet.FindSymbol(pairsNames[i], pairsNames[i+1])
+		if err != nil {
+			return fmt.Errorf("%s ошибка: %s, %v", errMsg, err, info)
+		}
+		qty, err = currSet.CreateSellOrder(info, qty, symbol, pairName)
+		if err != nil {
+			return fmt.Errorf("%s ошибка: %s", errMsg, err)
+		}
+	}
+	return nil
+}
+
+func (currSet *CurrencySettings) CreateSellOrder(info config.Info, size float64, symbol string, coin string) (float64, error) {
+	coinType := "baseCoin"
+	side := "Sell"
+	if info.BaseCoin == coin {
+		size = RoundCustomStep(size, info.Precision.BasePrecision)
+	} else {
+		coinType = "quoteCoin"
+		side = "Buy"
+		size = RoundCustomStep(size, info.Precision.QuotePrecision)
+	}
+	inversion := true
+	if coinType == "quoteCoin" {
+		inversion = false
+	}
+	return currSet.CreateOrderAndGetResult(symbol, 1., size, coinType, side, "Market", inversion)
+}
+
+func (currSet *CurrencySettings) ProcessFirstPair(size float64, price float64, pairsNames []string) (float64, error) {
+	symbol, info, err := currSet.FindSymbol(pairsNames[0], pairsNames[1])
+	if err != nil {
+		return 0.0, err
+	}
+	return currSet.createFirstOrder(info, size, price, symbol, pairsNames[1])
+}
+
+func (currSet *CurrencySettings) createFirstOrder(info config.Info, size float64, price float64, symbol string, coin string) (float64, error) {
+	side := "Buy"
+	coinType := "baseCoin"
+	if info.BaseCoin != coin {
+		side = "Sell"
+		size = size * price
+		price = 1.0 / price
+	}
+	size = RoundCustomStep(size, info.Precision.BasePrecision)
+	price = RoundCustomStep(price, info.TickSize)
+	inversion := true
+	if side == "Buy" {
+		inversion = false
+	}
+	return currSet.CreateOrderAndGetResult(symbol, price, size, coinType, side, "Limit", inversion)
+}
+
+func (currSet *CurrencySettings) CreateOrderAndGetResult(symbol string, price float64, qty float64, coinType string, side string, orderType string, inversion bool) (float64, error) {
+	if currSet.MARKET == "bybit" {
+		orderId, err := trade.CreateBybitOrder(symbol, price, qty, coinType, side, orderType)
+		if err != nil {
+			return 0.0, err
+		}
+		orderInfo, err := trade.GetBybitOrderInfo(orderId)
+		if err != nil {
+			return 0.0, err
+		}
+		if len(orderInfo) == 0 {
+			return 0.0, fmt.Errorf("orderInfo not found")
+		}
+		return trade.SumBybitQty(orderInfo, inversion), nil
+	}
+	if currSet.MARKET == "mexc" {
+		orderId, err := trade.CreateMexcOrder(symbol, price, qty, coinType, side, orderType)
+		if err != nil {
+			return 0.0, err
+		}
+		orderInfo, err := trade.GetMexcOrderInfo(symbol, orderId)
+		if err != nil {
+			return 0.0, err
+		}
+		return trade.SumMexcQty(orderInfo, inversion), nil
+	}
+	return 0.0, fmt.Errorf("Неизвестный тип биржи")
+}
+
+func (currSet *CurrencySettings) GetWalletBalance(coins string) (map[string]float64, error) {
+	if currSet.MARKET == "bybit" {
+		return trade.GetBybitWalletBalance(coins)
+	}
+	if currSet.MARKET == "mexc" {
+		return trade.GetMexcWalletBalance()
+	}
+	return map[string]float64{}, fmt.Errorf("Неизвестный тип биржи")
+}
+
 func (currSet *CurrencySettings) FindSymbol(firstCurrency string, secondCurrency string) (string, config.Info, error) {
 	symbol := firstCurrency + secondCurrency
 	if info, exists := currSet.SUBSCRIBE_TICKERS_LIST[symbol]; exists {
@@ -263,6 +374,7 @@ func (currSet *CurrencySettings) FindSymbol(firstCurrency string, secondCurrency
 	}
 	return "", config.Info{}, fmt.Errorf("pairs %s not found in config", symbol)
 }
+
 
 func ConvertCurrency(
 	balance float64,
@@ -289,4 +401,8 @@ func ConvertCurrency(
 		remainder = balance - oldBalance
 	}
 	return newBalance, remainder
+}
+
+func RoundCustomStep(number, step float64) float64 {
+	return math.Floor(number*step) / step
 }

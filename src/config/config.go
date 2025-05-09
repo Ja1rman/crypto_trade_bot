@@ -9,6 +9,10 @@ import (
 var (
 	API_KEY string = os.Getenv("API_KEY")
 	API_KEY_SECRET string = os.Getenv("API_KEY_SECRET")
+	ACCESS_KEY_MEXC string = os.Getenv("ACCESS_KEY_MEXC")
+	SECRET_KEY_MEXC string = os.Getenv("SECRET_KEY_MEXC")
+
+	MEXC_URL string = "https://api.mexc.com"
 )
 
 type Info struct {
