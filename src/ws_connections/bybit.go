@@ -2,12 +2,14 @@ package ws_connections
 
 import (
 	"fmt"
+	"time"
 	"encoding/json"
 
 	bybit "github.com/bybit-exchange/bybit.go.api"
 
 	"crypto_trading/src/logger"
 	"crypto_trading/src/handlers"
+	"crypto_trading/src/stats"
 )
 
 type OrderBookJsonMessage struct {
@@ -18,22 +20,28 @@ type OrderBookJsonMessage struct {
 	Cts   int64             `json:"cts"`
 }
 
+var (
+	maxBybitTime int64 = 0
+)
+
 func StartByBitConnection(tickers []string, prices *handlers.Prices) {
 	ws := bybit.NewBybitPublicWebSocket("wss://stream.bybit.com/v5/public/spot", func(message string) error {
-		//fmt.Println("Received message: ", message)
 		var jsonMessage OrderBookJsonMessage
 		if err := json.Unmarshal([]byte(message), &jsonMessage); err != nil {
 			logger.Logger.Println("Ошибка парсинга JSON:", err)
 			return err
 		}
-		// для задержек
-		//eventTime := time.UnixMilli(jsonMessage.Cts)
-		//now := time.Now()
-		//diff := now.Sub(eventTime).Milliseconds()
-		//if diff > 100 && jsonMessage.Ts != 0 {
-			//go alerting.SendMessage(fmt.Sprintf("Задержка принятия сообщения %d ms", diff))
-			//fmt.Printf("Задержка принятия сообщения %d ms\n", diff)
-		//}
+		eventTime := time.UnixMilli(jsonMessage.Cts)
+		now := time.Now()
+		diff := now.Sub(eventTime).Milliseconds()
+
+		if diff > maxBybitTime && jsonMessage.Ts != 0 {
+			maxBybitTime = diff
+		}
+		if now.Unix() % 15 == 0 {
+			go stats.PushToPrometheus(stats.RecieveFromServerDuration, "bybit", float64(maxBybitTime), "duration")
+			maxBybitTime = 0
+		}
 		go prices.UpdateOrdersBook(jsonMessage.Data, jsonMessage.Ts)
 		return nil
 	})

@@ -5,12 +5,16 @@ import (
 	"fmt"
 	"time"
 
-	"crypto_trading/websocket-proto/mexc/protobuf"
-
 	"github.com/gorilla/websocket"
 	"google.golang.org/protobuf/proto"
 
+	"crypto_trading/websocket-proto/mexc/protobuf"
+	"crypto_trading/src/stats"
 	"crypto_trading/src/handlers"
+)
+
+var (
+	maxMexcTime int64 = 0
 )
 
 func StartMexcConnection(tickers []string, prices *handlers.Prices) {
@@ -73,6 +77,15 @@ func connectToMexc(tickers []string, prices *handlers.Prices) error {
 				if err := proto.Unmarshal(message, &msg); err != nil {
 					logger.Logger.Println("Ошибка разбора protobuf:", err)
 					continue
+				}
+				eventTime := time.UnixMilli(msg.GetSendTime())
+				now := time.Now()
+				diff := now.Sub(eventTime).Milliseconds()
+				if diff > maxMexcTime && msg.GetSendTime() != 0 {
+					maxMexcTime = diff
+				}
+				if now.Unix() % 15 == 0 {
+					go stats.PushToPrometheus(stats.RecieveFromServerDuration, "mexc", float64(maxMexcTime), "duration")
 				}
 
 				publicBookTickerArr := msg.GetPublicBookTickerBatch().GetItems()

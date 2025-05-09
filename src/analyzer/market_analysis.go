@@ -3,7 +3,7 @@ package analyzer
 import (
 	"fmt"
 	"math"
-	"runtime"
+	"math/rand"
 	"strings"
 	"time"
 	"slices"
@@ -12,7 +12,7 @@ import (
 	"crypto_trading/src/alerting"
 	"crypto_trading/src/config"
 	"crypto_trading/src/handlers"
-
+	"crypto_trading/src/stats"
 	"crypto_trading/src/logger"
 	"crypto_trading/src/trade"
 )
@@ -43,18 +43,26 @@ type CurrencySettings struct {
 
 func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
 	currSet.searchTradingPaths()
-	lastNotifier := time.Now().Add(3*time.Minute - time.Hour)
+	var maxAnalyzeTime int64 = 0
 
 	for {
-		start := time.Now().UnixNano()
+		start := time.Now().UnixMicro()
 		currSet.analyzeForAllPaths()
-		//elapsed := time.Now().UnixNano() - start
-		//fmt.Println(fmt.Sprintf("Время выполнения анализа: %d", elapsed))
 		now := time.Now()
-		if now.Sub(lastNotifier) > time.Hour {
-			elapsed := now.UnixNano() - start
-			go alerting.SendMessage(fmt.Sprintf("Время выполнения анализа: %d, Горутин в работе: %d, Количество данных: %d", elapsed, runtime.NumGoroutine(), currSet.PRICES.GetLenOfPrices()))
-			lastNotifier = now
+		elapsed := now.UnixMicro() - start
+		if elapsed > maxAnalyzeTime {
+			maxAnalyzeTime = elapsed
+		}
+		if now.Unix() % 15 == 0 {
+			go stats.PushToPrometheus(stats.AnalyzeDuration, currSet.MARKET, float64(maxAnalyzeTime), "duration")
+			// test
+			randomFloat := 600 + rand.Float64()*(1200-600)
+			go stats.PushToPrometheus(stats.WalletBalance, currSet.MARKET, randomFloat, "USDT")
+			randomFloat = 3 + rand.Float64()*(13-3)
+			go stats.PushToPrometheus(stats.WalletBalance, currSet.MARKET, randomFloat, "BTC")
+			go stats.PushToPrometheus(stats.OrdersDuration, currSet.MARKET, float64(elapsed*3), "duration")
+
+			maxAnalyzeTime = 0
 		}
 	}
 }
@@ -189,8 +197,12 @@ func (currSet *CurrencySettings) buyDecision(tradingPairs TradingPairs, balances
 	currenciesString := strings.Join(currencies, "/")
 
 	if config.TRADE && limits.StopBalance <= limits.MaxDealPrice {
-		logger.Logger.Printf("Попытка цикла для пары: %s\n", currenciesString)
-		//trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies, currSet.SUBSCRIBE_TICKERS_LIST)
+		// start := time.Now().UnixMilli()
+		// trade.ProcessCycle(balances[1], balances[1]/balances[0], currencies, currSet.SUBSCRIBE_TICKERS_LIST)
+		// now := time.Now()
+		// elapsed := now.UnixMilli() - start
+		//go stats.PushToPrometheus(stats.OrdersDuration, currSet.MARKET, float64(elapsed), "duration")
+
 		currSet.checkBalance()
 	}
 
@@ -245,6 +257,7 @@ func (currSet *CurrencySettings) checkBalance() {
 		if currency == "USDT" || currency == "USDC" {
 			bal = usdBal
 		}
+		go stats.PushToPrometheus(stats.WalletBalance, currSet.MARKET, bal, currency)
 		if bal < limits.StopBalance {
 			alerting.SendMessage("Не хватает денег!!!")
 			panic("Выход за критический порог баланса. Остановка работы...")
