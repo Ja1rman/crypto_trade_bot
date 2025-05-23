@@ -44,16 +44,18 @@ type CurrencySettings struct {
 func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
 	currSet.searchTradingPaths()
 	var maxAnalyzeTime int64 = 0
+	ticker := time.NewTicker(20 * time.Second)
+	defer ticker.Stop()
 
 	for {
 		start := time.Now().UnixMicro()
 		currSet.analyzeForAllPaths()
-		now := time.Now()
-		elapsed := now.UnixMicro() - start
+		elapsed := time.Now().UnixMicro() - start
 		if elapsed > maxAnalyzeTime {
 			maxAnalyzeTime = elapsed
 		}
-		if now.Unix() % 15 == 0 {
+		select {
+		case <-ticker.C:
 			go stats.PushToPrometheus(stats.AnalyzeDuration, currSet.MARKET, float64(maxAnalyzeTime), "duration")
 			// test
 			randomFloat := 600 + rand.Float64()*(1200-600)
@@ -63,6 +65,8 @@ func (currSet *CurrencySettings) LaunchInfiniteAnalyze() {
 			go stats.PushToPrometheus(stats.OrdersDuration, currSet.MARKET, float64(elapsed*3), "duration")
 
 			maxAnalyzeTime = 0
+		default:
+			continue
 		}
 	}
 }

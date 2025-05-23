@@ -59,7 +59,7 @@ func connectToMexc(tickers []string, prices *handlers.Prices) error {
 		}
 
 		pingTicker := time.NewTicker(30 * time.Second)
-
+		statTicker := time.NewTicker(15 * time.Second)
 		readErr := make(chan error, 1)
 		go func() {
 			for {
@@ -79,13 +79,9 @@ func connectToMexc(tickers []string, prices *handlers.Prices) error {
 					continue
 				}
 				eventTime := time.UnixMilli(msg.GetSendTime())
-				now := time.Now()
-				diff := now.Sub(eventTime).Milliseconds()
+				diff := time.Since(eventTime).Milliseconds()
 				if diff > maxMexcTime && msg.GetSendTime() != 0 {
 					maxMexcTime = diff
-				}
-				if now.Unix() % 15 == 0 {
-					go stats.PushToPrometheus(stats.RecieveFromServerDuration, "mexc", float64(maxMexcTime), "duration")
 				}
 
 				publicBookTickerArr := msg.GetPublicBookTickerBatch().GetItems()
@@ -112,6 +108,9 @@ func connectToMexc(tickers []string, prices *handlers.Prices) error {
 					logger.Logger.Println("Ошибка при отправке PING:", err)
 					break loop
 				}
+			case <-statTicker.C:
+				stats.PushToPrometheus(stats.RecieveFromServerDuration, "mexc", float64(maxMexcTime), "duration")
+				maxMexcTime = 0
 			case err := <-readErr:
 				logger.Logger.Println("Ошибка чтения WebSocket:", err)
 				break loop
@@ -120,6 +119,7 @@ func connectToMexc(tickers []string, prices *handlers.Prices) error {
 
 		conn.Close()
 		pingTicker.Stop()
+		statTicker.Stop()
 		logger.Logger.Println("Переподключение через", reconnectDelay)
 		time.Sleep(reconnectDelay)
 	}

@@ -20,15 +20,15 @@ func generateTickersList(tickers map[string]config.Info) []string {
 func main() {
 	logger.LoggerSetup()
 	//mexcCurrencySettings := utils.SetMexcSettings()
-	bybitCurrencySettings := utils.SetBybitSettings()
+	//bybitCurrencySettings := utils.SetBybitSettings()
 
 	//tickers := generateTickersList(mexcCurrencySettings.SUBSCRIBE_TICKERS_LIST)
-	tickers := generateTickersList(bybitCurrencySettings.SUBSCRIBE_TICKERS_LIST)
+	//tickers := generateTickersList(bybitCurrencySettings.SUBSCRIBE_TICKERS_LIST)
 
 	//go ws_connections.StartMexcConnection(tickers, &mexcCurrencySettings.PRICES)
-	go ws_connections.StartByBitConnection(tickers, &bybitCurrencySettings.PRICES)
+	//go ws_connections.StartByBitConnection(tickers, &bybitCurrencySettings.PRICES)
 	time.Sleep(40 * time.Second)
 	//go mexcCurrencySettings.LaunchInfiniteAnalyze()
-	go bybitCurrencySettings.LaunchInfiniteAnalyze()
+	//go bybitCurrencySettings.LaunchInfiniteAnalyze()
 	select {}
 }

@@ -2,17 +2,17 @@ package utils
 
 // all tickers curl -L -X GET 'https://api.bybit.com/v5/market/tickers?category=spot'
 import (
-    "context"
+	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 
-
-    bybit "github.com/bybit-exchange/bybit.go.api"
+	bybit "github.com/bybit-exchange/bybit.go.api"
 
 	"crypto_trading/src/analyzer"
+	"crypto_trading/src/config"
 	"crypto_trading/src/handlers"
 	"crypto_trading/src/logger"
-	"crypto_trading/src/config"
 )
 
 type InstrumentInfo struct {
@@ -47,6 +47,7 @@ func SetBybitSettings() *analyzer.CurrencySettings {
 	allSymbols = filterNonActiveBybitSymbols(allSymbols)
 	tickersList := formatBybitSymbols(allSymbols)
 	routes, infoMap := GenerateRoutesAndInfoMap(tickersList)
+	fmt.Println(len(infoMap))
 	result := &analyzer.CurrencySettings{
 		MIN_PROFIT: 0.002,
 		MIN_MONEY_DEAL: 0.3,

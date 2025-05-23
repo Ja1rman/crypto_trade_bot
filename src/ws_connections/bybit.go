@@ -31,16 +31,10 @@ func StartByBitConnection(tickers []string, prices *handlers.Prices) {
 			logger.Logger.Println("Ошибка парсинга JSON:", err)
 			return err
 		}
-		eventTime := time.UnixMilli(jsonMessage.Cts)
-		now := time.Now()
-		diff := now.Sub(eventTime).Milliseconds()
-
+		eventTime := time.UnixMilli(jsonMessage.Ts)
+		diff := time.Since(eventTime).Milliseconds()
 		if diff > maxBybitTime && jsonMessage.Ts != 0 {
 			maxBybitTime = diff
-		}
-		if now.Unix() % 15 == 0 {
-			go stats.PushToPrometheus(stats.RecieveFromServerDuration, "bybit", float64(maxBybitTime), "duration")
-			maxBybitTime = 0
 		}
 		go prices.UpdateOrdersBook(jsonMessage.Data, jsonMessage.Ts)
 		return nil
@@ -60,5 +54,13 @@ func StartByBitConnection(tickers []string, prices *handlers.Prices) {
 		}
 		_, _ = ws.SendSubscription(subscriptions)
 	}
+	ticker := time.NewTicker(15 * time.Second)
+	defer ticker.Stop()
+	go func() {
+		for range ticker.C {
+			stats.PushToPrometheus(stats.RecieveFromServerDuration, "bybit", float64(maxBybitTime), "duration")
+			maxBybitTime = 0
+		}
+	}()
 	select {}
 }
