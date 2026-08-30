@@ -1,7 +1,7 @@
 package main
 
 import (
-	"time"	
+	"time"
 
 	"crypto_trading/src/config"
 	"crypto_trading/src/logger"
@@ -10,7 +10,7 @@ import (
 )
 
 func generateTickersList(tickers map[string]config.Info) []string {
-	var result []string
+	result := make([]string, 0, len(tickers))
 	for ticker := range tickers {
 		result = append(result, ticker)
 	}
@@ -19,16 +19,20 @@ func generateTickersList(tickers map[string]config.Info) []string {
 
 func main() {
 	logger.LoggerSetup()
-	//mexcCurrencySettings := utils.SetMexcSettings()
-	//bybitCurrencySettings := utils.SetBybitSettings()
 
-	//tickers := generateTickersList(mexcCurrencySettings.SUBSCRIBE_TICKERS_LIST)
-	//tickers := generateTickersList(bybitCurrencySettings.SUBSCRIBE_TICKERS_LIST)
+	mexcCurrencySettings := utils.SetMexcSettings()
+	bybitCurrencySettings := utils.SetBybitSettings()
 
-	//go ws_connections.StartMexcConnection(tickers, &mexcCurrencySettings.PRICES)
-	//go ws_connections.StartByBitConnection(tickers, &bybitCurrencySettings.PRICES)
+	mexcTickers := generateTickersList(mexcCurrencySettings.SUBSCRIBE_TICKERS_LIST)
+	bybitTickers := generateTickersList(bybitCurrencySettings.SUBSCRIBE_TICKERS_LIST)
+
+	go ws_connections.StartMexcConnection(mexcTickers, &mexcCurrencySettings.PRICES)
+	go ws_connections.StartByBitConnection(bybitTickers, &bybitCurrencySettings.PRICES)
+
 	time.Sleep(40 * time.Second)
-	//go mexcCurrencySettings.LaunchInfiniteAnalyze()
-	//go bybitCurrencySettings.LaunchInfiniteAnalyze()
+
+	go mexcCurrencySettings.LaunchInfiniteAnalyze()
+	go bybitCurrencySettings.LaunchInfiniteAnalyze()
+
 	select {}
 }

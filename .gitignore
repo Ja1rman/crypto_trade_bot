@@ -1,7 +1,9 @@
 .env
+.env.*
+!.env.example
+.DS_Store
 logs.log
 crypto_trading
-TODO_LIST.md
 results.json
-crypto_trading
 websocket-proto/
+coverage.out

@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	
+
 	"crypto_trading/src/logger"
 )
 
 var (
 	TELEGRAM_TOKEN = os.Getenv("TELEGRAM_TOKEN")
-	CHAT_ID = "-1001646996694"
+	CHAT_ID         = os.Getenv("TELEGRAM_CHAT_ID")
 )
 
 func SendMessage(message string) {
@@ -20,7 +20,7 @@ func SendMessage(message string) {
 	data := url.Values{}
 	data.Set("chat_id", CHAT_ID)
 	data.Set("text", message)
-	data.Set("parse_mode", "Markdown") // Можно использовать HTML или Markdown
+	data.Set("parse_mode", "Markdown")
 
 	resp, err := http.PostForm(apiURL, data)
 	if err != nil {
@@ -31,6 +31,5 @@ func SendMessage(message string) {
 
 	if resp.StatusCode != http.StatusOK {
 		logger.Logger.Printf("Неудачная попытка отправки сообщения, статус: %s", resp.Status)
-		return
 	}
 }

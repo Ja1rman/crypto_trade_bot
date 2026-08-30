@@ -1,8 +1,13 @@
 services:
   crypto-app:
     build: .
-    ports:
-      - "2112:2112"
+    environment:
+      API_KEY: ${API_KEY:-}
+      API_KEY_SECRET: ${API_KEY_SECRET:-}
+      ACCESS_KEY_MEXC: ${ACCESS_KEY_MEXC:-}
+      SECRET_KEY_MEXC: ${SECRET_KEY_MEXC:-}
+      TELEGRAM_TOKEN: ${TELEGRAM_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
     networks:
       - monitoring
 
@@ -16,7 +21,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
@@ -28,11 +33,11 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GF_SECURITY_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD:?Set GF_SECURITY_ADMIN_PASSWORD in .env}
     networks:
       - monitoring
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
 
 networks:
   monitoring:
